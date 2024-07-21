@@ -5,7 +5,7 @@ TheLanout website static because sal took my mf web ports
 The outage is only temporary; we will be back fully, hopefully by 2026. For now, everything is being hosted on Github with Cloudflare pages, so here is the list of events that made this outage occur.
 
 # Ports:  
-As we all know, most **HTTPS** websites use port 443 and **HTTP** websites use port 80. My brother, Siad, needs ports 443 and 80 for his VPN thingy, as he recently moved back in! The good side is that I get to see my brother again! On the bad side, he took all the web ports, and I only got 2 ports for Minecraft services, which is okay, so there is a very slim chance that TheLanoutMC returns.
+As we all know, most **HTTPS** websites use port 443 and **HTTP** websites use port 80. My brother needs ports 443 and 80 for his VPN thingy, as he recently moved back in! The good side is that I get to see my brother again! On the bad side, he took all the web ports, and I only got 2 ports for Minecraft services, which is okay, so there is a very slim chance that TheLanoutMC returns.
 
 > Why didn't you just say no?
 
