@@ -1,0 +1,1 @@
+Change the folder name to the page name.

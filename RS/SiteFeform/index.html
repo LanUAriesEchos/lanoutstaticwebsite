@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <title>Home</title>
+    <body>
+        <div id="navbar-placeholder"></div>
+
+        <div id="navbar-placeholder"></div>
+
+        <script>
+        // Load the navbar from the navbar.html file
+        fetch('RS/nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+        
+                // Add CSS for the navbar
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .navbar {
+                        background-color: #333;
+                        padding: 10px 20px;
+                        text-align: center;
+                    }
+        
+                    .navbar-list {
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        justify-content: center;
+                    }
+        
+                    .navbar-list li {
+                        margin: 0 15px;
+                    }
+        
+                    .navbar-list a {
+                        color: white;
+                        text-decoration: none;
+                        font-size: 18px;
+                        font-weight: bold;
+                        padding: 8px 16px;
+                        display: inline-block;
+                        transition: background-color 0.3s ease;
+                    }
+        
+                    .navbar-list a:hover {
+                        background-color: #ff9c00;
+                        border-radius: 5px;
+                    }
+                `;
+                document.head.appendChild(style);
+            });
+        </script>
+    </body>
+</html>
