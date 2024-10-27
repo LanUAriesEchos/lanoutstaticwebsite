@@ -137,7 +137,6 @@
                 <option value=".css">CSS (.css)</option>
                 <option value=".properties">Properties (.properties)</option>
                 <option value=".lic">License (.lic)</option>
-                <option value=".json">JSON (.json)</option> <!-- Added JSON option -->
             </select>
             <button class="control-item" onclick="exportText()">Export</button>
             <button class="control-item" onclick="document.getElementById('fileInput').click()">Import</button>
@@ -145,7 +144,7 @@
             <a class="discord-link" href="https://discord.com/invite/Q2wegsaMNt" target="_blank">
                 <i class="fab fa-discord"></i> Join our Discord
             </a>
-            <input type="file" id="fileInput" style="display: none;" accept=".txt,.html,.css,.properties,.lic,.json" onchange="importText(event)"> <!-- Added .json in accept -->
+            <input type="file" id="fileInput" style="display: none;" accept=".txt,.html,.css,.properties,.lic" onchange="importText(event)">
         </div>
         <button class="control-item" id="themeToggle" onclick="toggleTheme()">Toggle Dark Mode</button>
     </div>
@@ -155,16 +154,11 @@
     <script>
         let currentFileType = '.txt'; // Default file type for export
 
-        // Check for saved theme preference on page load
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-
         function exportText() {
             const text = document.getElementById('editor').value;
             const fileName = document.getElementById('fileName').value || 'document'; // Default name if none provided
             const selectedFileType = document.getElementById('fileType').value; // Get selected file type
-            const blob = new Blob([text], { type: 'application/json' }); // Updated MIME type for JSON
+            const blob = new Blob([text], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = fileName.endsWith(selectedFileType) ? fileName : `${fileName}${selectedFileType}`; // Ensure the selected extension
@@ -186,13 +180,6 @@
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
-
-            // Save theme preference in local storage
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
         }
 
         function openInBrowser() {
