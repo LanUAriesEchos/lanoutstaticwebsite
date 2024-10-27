@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Text Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMYd5I5cV7R1nM09tc3g5A5vEUT+o3L9e6Kn7F" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .control-item {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            color: #333; /* Default text color */
+            transition: box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .control-item:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"], select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 200px;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #007BFF; /* Set to blue color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #editor {
+            width: 100%;
+            height: calc(100vh - 250px); /* Full height minus button area */
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+            background-color: #fff;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode #editor {
+            background-color: #555;
+            border-color: #888;
+            color: #f4f4f4;
+        }
+
+        .dark-mode .control-item {
+            background-color: #444;
+            color: #f4f4f4; /* Text color in dark mode */
+        }
+
+        #instruction {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            transition: color 0.3s;
+        }
+
+        .dark-mode #instruction {
+            color: #ccc;
+        }
+
+        .discord-link {
+            margin-left: 15px;
+            color: #007BFF;
+            text-decoration: underline; /* Make it look like a link */
+            font-weight: bold; /* Make it stand out */
+            display: flex;
+            align-items: center;
+        }
+
+        .discord-link i {
+            margin-right: 5px; /* Space between icon and text */
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        body.dark-mode h1, body.dark-mode a {
+            color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Text Editor</h1>
+    <div class="button-container">
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="fileName" placeholder="Enter file name" />
+            <select id="fileType">
+                <option value=".txt">Text (.txt)</option>
+                <option value=".html">HTML (.html)</option>
+                <option value=".css">CSS (.css)</option>
+                <option value=".properties">Properties (.properties)</option>
+                <option value=".lic">License (.lic)</option>
+            </select>
+            <button class="control-item" onclick="exportText()">Export</button>
+            <button class="control-item" onclick="document.getElementById('fileInput').click()">Import</button>
+            <button class="control-item" onclick="openInBrowser()">Open in Browser</button>
+            <a class="discord-link" href="https://discord.com/invite/Q2wegsaMNt" target="_blank">
+                <i class="fab fa-discord"></i> Join our Discord
+            </a>
+            <input type="file" id="fileInput" style="display: none;" accept=".txt,.html,.css,.properties,.lic" onchange="importText(event)">
+        </div>
+        <button class="control-item" id="themeToggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    </div>
+    <div id="instruction">Use <strong>CTRL + F</strong> to search for text on this page.</div>
+    <textarea id="editor" placeholder="Type your text here..."></textarea>
+
+    <script>
+        let currentFileType = '.txt'; // Default file type for export
+
+        function exportText() {
+            const text = document.getElementById('editor').value;
+            const fileName = document.getElementById('fileName').value || 'document'; // Default name if none provided
+            const selectedFileType = document.getElementById('fileType').value; // Get selected file type
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName.endsWith(selectedFileType) ? fileName : `${fileName}${selectedFileType}`; // Ensure the selected extension
+            link.click();
+        }
+
+        function importText(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('editor').value = e.target.result;
+                const importedFileName = file.name.split('.').slice(0, -1).join('.'); // Get the file name without extension
+                document.getElementById('fileName').value = importedFileName; // Set the file name input
+                currentFileType = file.name.split('.').pop(); // Update the current file type based on the imported file
+                document.getElementById('fileType').value = `.${currentFileType}`; // Set the dropdown to the current file type
+            };
+            reader.readAsText(file);
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function openInBrowser() {
+            const text = document.getElementById('editor').value;
+            const newWindow = window.open('about:blank', '_blank');
+            newWindow.document.write(text);
+            newWindow.document.close();
+        }
+    </script>
+</body>
+</html>
