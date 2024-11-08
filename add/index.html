@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow with Links</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f3f3f3;
+        }
+        h1 {
+            text-align: center;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Slideshow images */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 400px;
+        }
+
+        /* Animation for fading effect */
+        .fade {
+            animation: fadeEffect 1s;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        /* List of links */
+        .links {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links li {
+            margin: 5px 0;
+        }
+        .links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Text under slideshow */
+        .text-below {
+            margin-top: 20px;
+            max-width: 600px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>TheLanout/Additions</h1>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <img class="slide fade" src="https://via.placeholder.com/600x400/ff7f7f/333333?text=Image+1" alt="Slide 1">
+        <img class="slide fade" src="https://via.placeholder.com/600x400/7fbfff/333333?text=Image+2" alt="Slide 2">
+        <img class="slide fade" src="https://via.placeholder.com/600x400/ffd27f/333333?text=Image+3" alt="Slide 3">
+    </div>
+
+    <!-- List of links -->
+    <ul class="links">
+        <li><a href="https://www.thelanout.net/add/text-edit">TL File editor</a></li>
+        <li><a href="https://www.thelanout.net/add/site-saver">TL Site Saver</a></li>
+        <li><a href="https://www.thelanout.net/add/WT/index.html">WebTop</a></li>
+        <li><a href="#">Link 4</a></li>
+    </ul>
+
+    <!-- Text below slideshow -->
+    <div class="text-below">
+        <p>Welcome to TheLanout webapps! This section features a rotating gallery of images. Click on the links above to explore more content.</p>
+    </div>
+
+    <!-- JavaScript for slideshow -->
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+    </script>
+</body>
+</html>
