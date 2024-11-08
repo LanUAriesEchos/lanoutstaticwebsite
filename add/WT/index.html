@@ -3,25 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheLanout - WebTop - Coming Soon</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
-        }
-        h1 {
-            font-size: 3em;
-            color: #555;
-        }
-    </style>
+    <title>Web Desktop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Coming Soon!</h1>
+    <div class="desktop">
+        <!-- Icons -->
+        <div class="icon" data-window-id="window1">
+            <img src="folder-icon.png" alt="Folder">
+            <p>My Folder</p>
+        </div>
+        <div class="icon" data-window-id="window2">
+            <img src="app-icon.png" alt="App">
+            <p>My App</p>
+        </div>
+        <div class="icon" data-window-id="settings">
+            <img src="settings-icon.png" alt="Settings">
+            <p>Settings</p>
+        </div>
+
+        <!-- Windows -->
+        <div id="window1" class="window">
+            <div class="window-header">
+                <span>My Folder</span>
+                <button onclick="closeWindow('window1')">X</button>
+                <button onclick="minimizeWindow('window1')">_</button>
+                <button onclick="maximizeWindow('window1')">□</button>
+            </div>
+            <div class="window-content">
+                <p>This is a folder window.</p>
+            </div>
+        </div>
+        <div id="window2" class="window">
+            <div class="window-header">
+                <span>My App</span>
+                <button onclick="closeWindow('window2')">X</button>
+                <button onclick="minimizeWindow('window2')">_</button>
+                <button onclick="maximizeWindow('window2')">□</button>
+            </div>
+            <div class="window-content">
+                <p>This is an app window.</p>
+            </div>
+        </div>
+        <div id="settings" class="window">
+            <div class="window-header">
+                <span>Settings</span>
+                <button onclick="closeWindow('settings')">X</button>
+            </div>
+            <div class="window-content">
+                <h3>Taskbar Settings</h3>
+                <label for="taskbar-color">Taskbar Color:</label>
+                <input type="color" id="taskbar-color" onchange="changeTaskbarColor(event)" value="#333">
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+        <div id="start-button" onclick="toggleStartMenu()">Start</div>
+        <div id="open-apps"></div>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu" class="hidden">
+        <ul>
+            <li onclick="openWindow('window1')">My Folder</li>
+            <li onclick="openWindow('window2')">My App</li>
+            <li onclick="openWindow('settings')">Settings</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
