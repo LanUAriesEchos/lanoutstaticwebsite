@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spacebar Counter, 0</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #222;
+      color: white;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .counter {
+      font-size: 48px;
+      margin-bottom: 40px;
+    }
+
+    .spacebar {
+      width: 300px;
+      height: 100px;
+      background-color: #444;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      border: 3px solid #555;
+      transition: background-color 0.2s, transform 0.2s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .spacebar.active {
+      background-color: #00aa00;
+      transform: scale(1.05);
+      border-color: #00ff00;
+      box-shadow: 0 5px 25px rgba(0, 255, 0, 0.6);
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spacebar Counter</h1>
+  <div class="counter" id="counter">Press the spacebar!</div>
+  <div class="spacebar" id="spacebar">SPACEBAR</div>
+  <footer>Press the spacebar to increase the count.</footer>
+
+  <script>
+    const counterElement = document.getElementById('counter');
+    const spacebarElement = document.getElementById('spacebar');
+    let count = 0;
+
+    // Update the tab title and the counter display
+    function updateCounter() {
+      counterElement.textContent = `Count: ${count}`;
+      document.title = `Spacebar Counter, ${count}`;
+    }
+
+    // Listen for keydown and keyup events
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        count++;
+        updateCounter();
+        spacebarElement.classList.add('active'); // Highlight the spacebar
+      }
+    });
+
+    document.addEventListener('keyup', (event) => {
+      if (event.code === 'Space') {
+        spacebarElement.classList.remove('active'); // Remove the highlight
+      }
+    });
+  </script>
+</body>
+</html>
