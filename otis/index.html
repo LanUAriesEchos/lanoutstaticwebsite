@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .placeholder {
+      margin: 10px 0;
+      padding: 5px;
+    }
+    .placeholder.first {
+      font-size: calc(5vw + 30px); /* Dynamically scale with screen width */
+      font-weight: bold;
+    }
+    .placeholder:not(.first) {
+      font-size: 18px; /* Default size for other text */
+    }
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    .image-grid img {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 5px solid white;
+      border-radius: 10px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Static Placeholder Text -->
+  <div class="placeholder first">Otis the cat</div>
+<div class="placeholder">2011-2024</div>
+  <div class="placeholder">Otis passed today, the original image of thelanout</div>
+  <div class="placeholder">Below are some pictures of otis</div>
+
+  <!-- Image Grid -->
+  <div class="image-grid" id="imageGrid"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="imageModal">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <img src="" alt="Enlarged Image" id="modalImage">
+  </div>
+
+  <script>
+    // Populate image grid
+    const imageGrid = document.getElementById('imageGrid');
+    const baseUrl = "https://www.thelanout.net/otis/img/";
+    const imageCount = 28;
+
+    // Function to create image element with fallback for .jpg or .png
+    async function createImageElement(index) {
+      const img = document.createElement('img');
+      img.alt = `Image ${index}`;
+      const jpgUrl = `${baseUrl}image${index}.jpg`;
+      const pngUrl = `${baseUrl}image${index}.png`;
+
+      // Try .jpg first, then .png
+      try {
+        const response = await fetch(jpgUrl);
+        if (response.ok) {
+          img.src = jpgUrl;
+        } else {
+          img.src = pngUrl;
+        }
+      } catch {
+        img.src = pngUrl; // Fallback to .png if .jpg fails
+      }
+
+      img.addEventListener('click', () => openModal(img.src));
+      return img;
+    }
+
+    // Populate the grid with images
+    (async function populateGrid() {
+      for (let i = 1; i <= imageCount; i++) {
+        const imgElement = await createImageElement(i);
+        imageGrid.appendChild(imgElement);
+      }
+    })();
+
+    // Modal functionality
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(src) {
+      modalImage.src = src;
+      modal.style.display = 'flex';
+    }
+
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target !== modalImage) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
