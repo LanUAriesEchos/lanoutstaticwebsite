@@ -138,6 +138,23 @@
         modal.style.display = 'none';
       }
     });
+
+// Function to delete image 7
+  function deleteImage7() {
+    const imageGrid = document.getElementById('imageGrid');
+    const images = imageGrid.getElementsByTagName('img');
+    
+    // Check if the 7th image exists (index 6 in a zero-based array)
+    if (images[6]) {
+      imageGrid.removeChild(images[6]);
+      console.log('Image 7 has been deleted.');
+    } else {
+      console.log('Image 7 does not exist.');
+    }
+  }
+
+  // Call the function to delete image 7
+  deleteImage7();
   </script>
 </body>
 </html>
