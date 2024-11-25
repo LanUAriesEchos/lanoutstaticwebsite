@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates</title>
+    <style>
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+        body.dark-mode h1, body.dark-mode p, body.dark-mode h2 {
+            color: #f4f4f4;
+        }
+        body.dark-mode .control-item {
+            background-color: #555;
+            color: #f4f4f4;
+        }
+        body.dark-mode #update-container {
+            background-color: #444;
+            color: #f4f4f4;
+        }
+        /* Additional specific styles for the updates page */
+        #update-container {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        #update-container h2 {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="update-container">
+        <h1>Updates</h1>
+        <h2>Latest Changes</h2>
+        <p>We have been making continuous improvements. Check out the latest updates below:</p>
+        <ul>
+            <li>Added Updates Window.</li>
+            <li>Added dark mode to Updates window.</li>
+            <li>Added Perminant bottom bar.</li>
+            <li>Fixed javascript issues</li>
+            <li>If you encounter any issues please E-mail ippolitoa@thelanout.net</li>
+        </ul>
+    </div>
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px 0; font-size: 16px; font-family: Arial, sans-serif; z-index: 10;">
+        © 2024 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" style="color: #4caf50; text-decoration: none; font-weight: bold;">Donate on Patreon</a>
+      </div>
+
+    <script>
+        // Check if dark mode is enabled in localStorage and apply it
+        const darkModeToggle = localStorage.getItem('isDarkMode') === 'true';
+        if (darkModeToggle) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
