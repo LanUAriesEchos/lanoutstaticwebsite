@@ -1,0 +1,170 @@
+body { 
+    font-family: Arial, sans-serif; 
+    background-color: #f4f4f4; 
+    margin: 0; 
+    padding: 20px; 
+}
+h1 { 
+    color: #333; 
+    text-align: center; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+#clock-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Space between the clock and the title */
+}
+#clock {
+    font-size: 3rem; /* Set clock size */
+    margin-right: 10px;
+}
+#time-format-toggle {
+    margin-left: 10px;
+}
+.controls { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-bottom: 20px; 
+    flex-wrap: wrap; 
+}
+.control-item { 
+    margin-right: 10px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    background-color: white; 
+    transition: box-shadow 0.3s;
+}
+.control-item:hover { 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.control-item input { 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    padding: 8px; 
+    width: 200px; 
+    box-sizing: border-box; 
+}
+.control-item button { 
+    background-color: #5cb85c; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+.control-item button:hover { 
+    background-color: #4cae4c; 
+    transform: scale(1.05);
+}
+#site-list { 
+    list-style-type: none; 
+    padding: 0; 
+    margin-top: 20px; 
+    max-width: 600px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+#site-list li { 
+    background: white; 
+    padding: 10px; 
+    margin: 5px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    display: flex; 
+    justify-content: space-between; /* Aligns content to opposite sides */
+    align-items: center; /* Center items vertically */
+    transition: background-color 0.3s;
+}
+#site-list li:hover { 
+    background-color: #f1f1f1; 
+}
+.favicon { 
+    width: 16px; 
+    height: 16px; 
+    margin-right: 10px; 
+}
+.editable { 
+    display: flex; 
+    align-items: center; 
+    flex: 1; 
+}
+.edit-controls {
+    display: flex; 
+    align-items: center; 
+    margin-left: auto; /* Push edit button to the right */
+}
+.error-message { 
+    color: red; 
+    text-align: center; 
+    margin: 10px 0; 
+    display: none; 
+}
+@media (max-width: 600px) {
+    .controls { 
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+    .control-item { 
+        margin-bottom: 10px; 
+        width: 100%; 
+    }
+}
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0,0,0,0.5); /* Black with opacity */
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Dark mode */
+body.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+body.dark-mode h1, body.dark-mode a {
+    color: #f4f4f4;
+}
+body.dark-mode .control-item {
+    background-color: #555;
+    color: #f4f4f4;
+}
+body.dark-mode #site-list li {
+    background-color: #444;
+}
+body.dark-mode .modal-content {
+    background-color: #444;
+    color: #f4f4f4;
+    border: 1px solid #888;
+}
