@@ -114,11 +114,19 @@ padding-left: 3%;
       </div>
 
     <script>
-        // Check if dark mode is enabled in localStorage and apply it
-        const darkModeToggle = localStorage.getItem('isDarkMode') === 'true';
-        if (darkModeToggle) {
-            document.body.classList.add('dark-mode');
-        }
+    // Get dark mode setting from cookies
+    const darkModeToggle = getCookie('isDarkMode') === 'true';
+
+    if (darkModeToggle) {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Cookie helper function to get a cookie by name
+    function getCookie(name) {
+        const cookies = document.cookie.split('; ');
+        const cookie = cookies.find(row => row.startsWith(name + '='));
+        return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+    }
     </script>
 </body>
 </html>
