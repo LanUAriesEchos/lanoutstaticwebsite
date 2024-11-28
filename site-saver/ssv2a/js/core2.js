@@ -199,6 +199,7 @@ saveSitesButton.onclick = () => {
     a.click();
     URL.revokeObjectURL(url);
 };
+// Load sites from a JSON file
 loadSitesButton.onclick = () => fileInput.click();
 
 fileInput.onchange = (event) => {
@@ -207,22 +208,29 @@ fileInput.onchange = (event) => {
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
+                console.log("File content:", e.target.result); // Log file content before parsing
+
                 const loadedSites = JSON.parse(e.target.result);
+                // Check if the loaded file is an array
                 if (Array.isArray(loadedSites)) {
-                    sites = loadedSites; // Overwrite current sites
-                    updateSiteList();
-                    saveSitesToCookies(); // Save to cookies
-                    clearError();
+                    sites = loadedSites; // Overwrite current sites with loaded data
+                    updateSiteList();    // Update the site list in the UI
+                    saveSitesToCookies(); // Save the loaded sites to cookies for persistence
+                    clearError();        // Clear any previous error messages
+                    console.log("Sites loaded successfully:", loadedSites); // Debug log
                 } else {
                     showError("Invalid file format. Please upload a valid JSON file.");
+                    console.error("Loaded data is not an array:", loadedSites);
                 }
-            } catch {
+            } catch (error) {
                 showError("Error reading file. Ensure it is valid JSON.");
+                console.error("Error parsing the file:", error);
             }
         };
-        reader.readAsText(file);
+        reader.readAsText(file); // Read the file as text
     }
 };
+
 
 
 
