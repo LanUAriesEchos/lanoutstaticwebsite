@@ -190,5 +190,41 @@ function getCookie(name) {
     return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
 }
 
+saveSitesButton.onclick = () => {
+    const blob = new Blob([JSON.stringify(sites, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "sites.json";
+    a.click();
+    URL.revokeObjectURL(url);
+};
+loadSitesButton.onclick = () => fileInput.click();
+
+fileInput.onchange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const loadedSites = JSON.parse(e.target.result);
+                if (Array.isArray(loadedSites)) {
+                    sites = loadedSites; // Overwrite current sites
+                    updateSiteList();
+                    saveSitesToCookies(); // Save to cookies
+                    clearError();
+                } else {
+                    showError("Invalid file format. Please upload a valid JSON file.");
+                }
+            } catch {
+                showError("Error reading file. Ensure it is valid JSON.");
+            }
+        };
+        reader.readAsText(file);
+    }
+};
+
+
+
 // Load saved sites on page load
 updateSiteList();
