@@ -176,11 +176,50 @@
             color: #f4f4f4;
             border: 1px solid #888;
         }
+        .alpha-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 1.2rem;
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.alpha-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.close-banner {
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    cursor: pointer;
+    font-size: 1.9rem;
+    font-weight: bold;
+    line-height: 1;
+}
     </style>
 </head>
 <body>
     <h1>
         Saved Sites
+    <div id="alpha-banner" class="alpha-banner">
+        <span class="alpha-text">Site-Saver 2.0 Open Alpha</span>
+        <a href="https://thelanout.net/site-saver/ssv2a/" class="alpha-link" target="_blank">Click here</a>
+        <span class="close-banner" onclick="dismissBanner()">×</span>
+    </div>
+
         <div id="clock-container">
             <span id="clock"></span>
             <label>
