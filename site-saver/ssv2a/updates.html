@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates, Site-Saver 2.0, O-ALPHA</title>
+    <style>
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+        body.dark-mode h1, body.dark-mode p, body.dark-mode h2 {
+            color: #f4f4f4;
+        }
+        body.dark-mode .control-item {
+            background-color: #555;
+            color: #f4f4f4;
+        }
+        body.dark-mode #update-container {
+            background-color: #444;
+            color: #f4f4f4;
+        }
+        /* Additional specific styles for the updates page */
+        #update-container {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        #update-container h2 {
+            font-size: 1.5rem;
+        }
+        #changelog {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        #changelog h2 {
+            font-size: 1.5rem;
+        }
+        #changelog h3 {
+padding-left: 3%;
+        }
+        #Upcoming {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        #Upcoming h2 {
+            font-size: 1.5rem;
+        }
+        #Upcoming h3 {
+padding-left: 3%;
+        }
+    </style>
+    </style>
+</head>
+<body>
+
+    <div id="update-container">
+        <h1>Updates, Site-Saver 2.0</h1>
+        <h2>Latest Changes</h2>
+        <p>We have been making continuous improvements. Check out the latest updates below:</p>
+        <ul>
+            <li>Now saves using cookies, should copy over to new devices. if using same browser and singned in with scync</li>
+            <li>If you encounter any issues please E-mail ippolitoa@thelanout.net</li>
+        </ul>
+    </div>
+    <hr style="border: none; border-top: 2px solid rgb(116, 57, 57); margin: 10px 0;">
+    <div id="Upcoming">
+
+        <h2>Upcoming Changes</h2>
+        <p>Here is our plan for sitesaver 2.0:</p>
+        <ul>
+            <li>Remove backend server as its been unused.</li>
+            <li>Save saved-sites with GoogleDrive and/or Google Account or a TheLanout account(possibly probebly not)</li>
+            <li>Add personisation which includes</li>
+            <div></div>
+            <ul>
+                <li>Being able to change the background to color/image</li>
+                <li>Being able to adjust color styles</li>
+                <li>Advanced options which include:</li>
+                <div></div>
+                <ul>
+                    <li>Complete CSS editor so allow for full customization with entire page that saves in cookies aswell.</li>
+                    <li> Ability to see how much Cookies Space is being used.</li>
+                </ul>
+            </ul>
+            <li>If you encounter any issues please E-mail ippolitoa@thelanout.net</li>
+        </ul>
+        </div>
+    <div id="changelog">
+        <h2>Changelog</h2>
+        <hr style="border: none; border-top: 2px solid rgb(116, 57, 57); margin: 10px 0;">
+        <h3>11/26/24</h3>
+        <ul>
+            <li>Added Updates Window.</li>
+            <li>Added dark mode to Updates window.</li>
+            <li>Added Perminant bottom bar.</li>
+            <li>Fixed javascript issues</li>
+            <li>If you encounter any issues please E-mail ippolitoa@thelanout.net</li>
+        </ul>
+        <hr style="border: none; border-top: 2px solid rgb(116, 57, 57); margin: 10px 0;">
+        <h3>10/24/2024</h3>
+        <ul>
+            <li>Create Site-Saver</li>
+            <li>Adjusted Site-Saver javascript to not run code on any browser to combat users killing WebPolicy software and bypass proxy web restriction software/Extentions.</li>
+<li>Adjusted backend server to not proxy them</li>
+            <li>If you encounter any issues please E-mail ippolitoa@thelanout.net</li>
+        </ul>
+    </div>
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px 0; font-size: 16px; font-family: Arial, sans-serif; z-index: 10;">
+        © 2024 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" style="color: #4caf50; text-decoration: none; font-weight: bold;">Donate on Patreon</a>
+      </div>
+
+    <script>
+        // Check if dark mode is enabled in localStorage and apply it
+        const darkModeToggle = localStorage.getItem('isDarkMode') === 'true';
+        if (darkModeToggle) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
