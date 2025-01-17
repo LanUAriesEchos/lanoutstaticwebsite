@@ -11,3 +11,7 @@
 https://myproject.pages.dev/*
   X-Robots-Tag: noindex
   X-Frame-Options: ALLOWALL
+
+/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: frame-ancestors *
