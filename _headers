@@ -6,6 +6,7 @@
 /static/*
   Access-Control-Allow-Origin: *
   X-Robots-Tag: nosnippet
+  X-Frame-Options: ALLOWALL
 
 https://myproject.pages.dev/*
   X-Robots-Tag: noindex
