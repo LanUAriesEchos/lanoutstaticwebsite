@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Color & Style Code Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Minecraft Color & Style Code Generator</h1>
+    <div class="input-section">
+      <label for="text">Enter Text:</label>
+      <input type="text" id="text" placeholder="Your text here">
+    </div>
+    <div class="color-section">
+      <label>Click a Color or Style:</label>
+      <div id="color-picker"></div>
+      <div id="style-buttons">
+
+        <button data-code="§k">Obfuscate</button>
+      </div>
+    </div>
+    <div class="output-section">
+      <h2>Generated Code:</h2>
+      <p id="output">§fYour text here</p>
+    </div>
+    <div class="preview-section">
+      <h2>Preview:</h2>
+      <p id="preview">Your text here</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
