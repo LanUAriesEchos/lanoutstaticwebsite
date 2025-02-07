@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Text Formatter</title>
+    <title> TheLanout Discord Text Formatter</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex items-center justify-center h-screen bg-gray-900 text-white">
-    <div class="w-3/4 p-6 bg-gray-800 rounded-lg shadow-lg flex flex-col">
+    <div class="w-3/4 p-6 bg-gray-800 rounded-lg shadow-lg flex flex-col relative">
         <h1 class="text-xl font-bold mb-4 text-center">Discord Text Formatter</h1>
         
         <div class="flex flex-wrap gap-2 justify-center mb-4">
@@ -17,13 +17,21 @@
             <button class="bg-blue-600 p-2 rounded" onclick="wrapText('inline')">Inline Code</button>
             <button class="bg-blue-600 p-2 rounded" onclick="wrapText('code')">Code Block</button>
             <button class="bg-blue-600 p-2 rounded" onclick="wrapText('spoiler')">Spoiler</button>
-            <button class="bg-green-600 p-2 rounded" onclick="copyText()">Copy</button>
+            <button class="bg-green-600 p-2 rounded relative" onclick="copyText()">Copy</button>
+            <button id="previewBtn" class="bg-purple-600 p-2 rounded" onclick="togglePreview()">Preview</button>
         </div>
         
         <textarea id="inputText" class="w-full p-2 bg-gray-700 rounded border border-gray-600 h-40" placeholder="Enter text..."></textarea>
+        
+        <div id="preview" class="w-full p-2 bg-gray-700 rounded border border-gray-600 h-40 hidden overflow-auto"></div>
+        
+        <div id="copyPopup" class="absolute top-10 right-10 bg-green-500 text-white px-4 py-2 rounded opacity-0 transition-opacity duration-300">Copied to clipboard!</div>
     </div>
-<div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px 0; font-size: 16px; font-family: Arial, sans-serif; z-index: 10;">
-      © 2024 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" style="color: #4caf50; text-decoration: none; font-weight: bold;">Donate on Patreon</a>
+    
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px 0; font-size: 16px; font-family: Arial, sans-serif; z-index: 10;">
+        © 2024 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" style="color: #4caf50; text-decoration: none; font-weight: bold;">Donate on Patreon</a>
+    </div>
+    
     <script>
         function wrapText(type) {
             let textarea = document.getElementById("inputText");
@@ -46,7 +54,9 @@
                     formattedText = `\`${text}\``;
                     break;
                 case 'code':
-                    formattedText = `\`\`\`\n${text}\n\`\`\``;
+                    formattedText = `\`\`\`
+${text}
+\`\`\``;
                     break;
                 case 'spoiler':
                     formattedText = `||${text}||`;
@@ -60,8 +70,41 @@
             let textarea = document.getElementById("inputText");
             textarea.select();
             document.execCommand("copy");
+            showCopyPopup();
+        }
+        
+        function showCopyPopup() {
+            let popup = document.getElementById("copyPopup");
+            popup.classList.remove("opacity-0");
+            popup.classList.add("opacity-100");
+            setTimeout(() => {
+                popup.classList.remove("opacity-100");
+                popup.classList.add("opacity-0");
+            }, 3000);
+        }
+
+        function togglePreview() {
+            let textarea = document.getElementById("inputText");
+            let previewDiv = document.getElementById("preview");
+            let previewBtn = document.getElementById("previewBtn");
+            
+            if (textarea.style.display !== "none") {
+                previewDiv.innerHTML = textarea.value
+                    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                    .replace(/\*(.*?)\*/g, '<i>$1</i>')
+                    .replace(/~~(.*?)~~/g, '<s>$1</s>')
+                    .replace(/\`([^`]+)\`/g, '<code>$1</code>')
+                    .replace(/\`\`\`([\s\S]*?)\`\`\`/g, '<pre style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; white-space: pre-wrap;">$1</pre>')
+                    .replace(/\|\|(.*?)\|\|/g, '<span style="background-color: black; color: black; padding: 2px; border-radius: 3px;">$1</span>');
+                textarea.style.display = "none";
+                previewDiv.classList.remove("hidden");
+                previewBtn.innerText = "Edit";
+            } else {
+                textarea.style.display = "block";
+                previewDiv.classList.add("hidden");
+                previewBtn.innerText = "Preview";
+            }
         }
     </script>
 </body>
 </html>
-
