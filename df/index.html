@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Text Formatter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-900 text-white">
+    <div class="w-3/4 p-6 bg-gray-800 rounded-lg shadow-lg flex flex-col">
+        <h1 class="text-xl font-bold mb-4 text-center">Discord Text Formatter</h1>
+        
+        <div class="flex flex-wrap gap-2 justify-center mb-4">
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('bold')">Bold</button>
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('italic')">Italic</button>
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('strike')">Strikethrough</button>
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('inline')">Inline Code</button>
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('code')">Code Block</button>
+            <button class="bg-blue-600 p-2 rounded" onclick="wrapText('spoiler')">Spoiler</button>
+            <button class="bg-green-600 p-2 rounded" onclick="copyText()">Copy</button>
+        </div>
+        
+        <textarea id="inputText" class="w-full p-2 bg-gray-700 rounded border border-gray-600 h-40" placeholder="Enter text..."></textarea>
+    </div>
+<div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px 0; font-size: 16px; font-family: Arial, sans-serif; z-index: 10;">
+      © 2024 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" style="color: #4caf50; text-decoration: none; font-weight: bold;">Donate on Patreon</a>
+    <script>
+        function wrapText(type) {
+            let textarea = document.getElementById("inputText");
+            let start = textarea.selectionStart;
+            let end = textarea.selectionEnd;
+            let text = textarea.value.substring(start, end);
+            let formattedText = "";
+            
+            switch (type) {
+                case 'bold':
+                    formattedText = `**${text}**`;
+                    break;
+                case 'italic':
+                    formattedText = `*${text}*`;
+                    break;
+                case 'strike':
+                    formattedText = `~~${text}~~`;
+                    break;
+                case 'inline':
+                    formattedText = `\`${text}\``;
+                    break;
+                case 'code':
+                    formattedText = `\`\`\`\n${text}\n\`\`\``;
+                    break;
+                case 'spoiler':
+                    formattedText = `||${text}||`;
+                    break;
+            }
+            
+            textarea.setRangeText(formattedText, start, end, 'end');
+        }
+
+        function copyText() {
+            let textarea = document.getElementById("inputText");
+            textarea.select();
+            document.execCommand("copy");
+        }
+    </script>
+</body>
+</html>
+
