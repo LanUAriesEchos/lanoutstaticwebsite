@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passcode Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Passcode Generator</h1>
+        
+        <!-- Toggle switch for custom input -->
+        <div class="toggle-container">
+            <label for="customInputToggle">Use Custom Text:</label>
+            <input type="checkbox" id="customInputToggle">
+        </div>
+        
+        <!-- Custom Text Input -->
+        <div class="input-container" id="customTextContainer" style="display:none;">
+            <label for="customText">Custom Text:</label>
+            <input type="text" id="customText" placeholder="Enter your custom text">
+        </div>
+        
+        <!-- Scramble Passcode Option -->
+        <div class="toggle-container" id="scrambleContainer" style="display:none;">
+            <label for="scrambleToggle">Scramble Passcode:</label>
+            <input type="checkbox" id="scrambleToggle">
+        </div>
+        
+        <!-- Leetspeak option -->
+        <div class="toggle-container" id="leetspeakContainer" style="display:none;">
+            <label for="leetspeakToggle">Enable Leetspeak:</label>
+            <input type="checkbox" id="leetspeakToggle">
+        </div>
+        
+        <input type="text" id="passcode" readonly>
+        
+        <button id="generateButton" onclick="generatePasscode()" disabled>Generate Passcode</button>
+        
+        <div class="slider-container" id="sliderContainer">
+            <label for="lengthSlider">Passcode Length: </label>
+            <input type="range" id="lengthSlider" min="8" max="20" value="12">
+            <span id="lengthValue">12</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
