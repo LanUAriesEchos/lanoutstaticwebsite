@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Redirecting to SiteSaver</title>
+	<style>
+		body { margin: 0; min-height: 100vh; display: grid; place-items: center; font: 16px system-ui, sans-serif; text-align: center; color: #243044; background: #f4f7fb; }
+		main { padding: 2rem; }
+		a { color: #1769aa; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Taking you to SiteSaver</h1>
+		<p>SiteSaver has moved to its new address!</p>
+		<p>You’ll be redirected in <strong id="countdown" aria-live="polite">10</strong> seconds.</p>
+		<p><a href="https://sitesaver.thelanout.net/">Go to SiteSaver now</a></p>
+		<p id="redirect-warning" hidden>Oops, NowPointServer or your web browser didn’t redirect you in time. You may have to click “Go to SiteSaver now” manually.</p>
+	</main>
+	<script>
+		let seconds = 10;
+		let controlHeld = false;
+		const countdown = document.getElementById('countdown');
+		const redirectWarning = document.getElementById('redirect-warning');
+		window.addEventListener('keydown', (event) => {
+			if (event.key === 'Control') controlHeld = true;
+		});
+		window.addEventListener('keyup', (event) => {
+			if (event.key === 'Control') controlHeld = false;
+		});
+		const timer = setInterval(() => {
+			seconds -= 1;
+			countdown.textContent = seconds;
+			if (seconds === 0) {
+				clearInterval(timer);
+				if (!controlHeld) {
+					window.location.href = 'https://sitesaver.thelanout.net/';
+				}
+			}
+		}, 1000);
+		setTimeout(() => {
+			redirectWarning.hidden = false;
+		}, 12000);
+	</script>
+</body>
+</html>
