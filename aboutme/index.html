@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#182622">
+	<title>About TheLanout</title>
+	<link rel="icon" type="image/png" href="https://www.thelanout.net/site-saver/Site-Saver-icon.png">
+	<style>
+		:root {
+			color-scheme: dark;
+			--ink: #e4eee9;
+			--muted: #a8bbb2;
+			--paper: #182622;
+			--surface: #22342e;
+			--line: #3b5148;
+			--green: #61b79b;
+			--green-dark: #a5dfc8;
+			--green-wash: #29483c;
+			--coral: #ff9c83;
+			--font-terminal: ui-monospace, "DejaVu Sans Mono", "Liberation Mono", monospace;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 30px 28px 86px;
+			color: var(--ink);
+			background-color: var(--paper);
+			background-image: linear-gradient(rgba(164, 210, 188, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(164, 210, 188, 0.035) 1px, transparent 1px);
+			background-size: 28px 28px;
+			font: 16px/1.6 var(--font-terminal);
+		}
+
+		.topbar {
+			position: sticky;
+			z-index: 5;
+			top: 0;
+			min-height: 70px;
+			margin: -30px -28px 34px;
+			padding: 12px 28px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 20px;
+			background: rgba(24, 38, 34, 0.94);
+			border-bottom: 1px solid var(--line);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+			backdrop-filter: blur(14px);
+		}
+
+		.brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
+		.brand img { width: 32px; height: 32px; object-fit: contain; }
+		.brand strong { font-size: 0.9rem; }
+		.brand small { color: var(--muted); font-size: 0.7rem; font-weight: 400; }
+		.topbar nav { display: flex; align-items: center; gap: 8px; }
+		.nav-link {
+			min-height: 38px;
+			padding: 7px 11px;
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			color: var(--ink);
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			font-size: 0.78rem;
+			text-decoration: none;
+		}
+		.nav-link:hover { background: var(--green-wash); border-color: #648477; }
+		.nav-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+		main { max-width: 980px; margin: 0 auto; }
+		.profile {
+			padding: 20px 0 34px;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 170px;
+			align-items: center;
+			gap: 40px;
+			border-bottom: 1px solid var(--line);
+		}
+		.eyebrow { margin: 0 0 10px; color: var(--green); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; }
+		h1 { margin: 0 0 18px; font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.2; }
+		.intro { max-width: 650px; margin: 0; color: var(--muted); font-size: 1rem; }
+		.profile-photo {
+			width: 150px;
+			height: 150px;
+			display: grid;
+			place-items: center;
+			justify-self: center;
+			align-content: center;
+			gap: 8px;
+			color: var(--muted);
+			background: var(--surface);
+			border: 1px dashed #648477;
+			border-radius: 8px;
+		}
+		.profile-image { width: 100%; height: 100%; display: block; object-fit: cover; border-radius: inherit; }
+
+		.details { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; padding: 28px 0; }
+		.detail-section { min-width: 0; }
+		.detail-section h2 { margin: 0 0 12px; font-size: 1rem; }
+		.detail-section p { margin: 0; color: var(--muted); font-size: 0.87rem; }
+		.project-link, .contact-link { color: var(--green-dark); text-underline-offset: 3px; }
+		.social-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+		.social-link {
+			min-height: 42px;
+			padding: 9px 13px;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: var(--ink);
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			font-size: 0.78rem;
+			text-decoration: none;
+			transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+		}
+		.social-link:hover { background: var(--green-wash); border-color: #648477; transform: translateY(-1px); }
+		.social-link svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+		.social-link.patreon { color: #ff9c83; }
+		.mission-support { padding: 22px 0 18px; border-top: 1px solid var(--line); }
+		.mission-support h2 { margin: 0 0 10px; font-size: 1rem; }
+		.mission-support p { max-width: 760px; margin: 0 0 14px; color: var(--muted); font-size: 0.87rem; }
+
+		#site-footer {
+			position: fixed;
+			z-index: 10;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			padding: 12px 18px;
+			color: #e8f2ed;
+			background: #173c35;
+			text-align: center;
+			font-size: 0.85rem;
+		}
+		#site-footer a { color: #c8ee82; font-weight: 700; text-decoration: none; }
+		#site-footer a:hover { text-decoration: underline; }
+		body.dark-mode #site-footer { color: var(--ink); background: #101b17; }
+		body.dark-mode #site-footer a { color: #c8ee82; }
+
+		@media (max-width: 650px) {
+			body { padding: 20px 16px 92px; }
+			.topbar { margin: -20px -16px 22px; padding: 11px 16px; }
+			.profile { grid-template-columns: minmax(0, 1fr) 84px; gap: 18px; padding: 12px 0 26px; }
+			.profile-photo { width: 76px; height: 76px; }
+			.details { grid-template-columns: 1fr; gap: 24px; }
+		}
+
+		@media (max-width: 420px) {
+			body { padding-right: 12px; padding-left: 12px; }
+			.topbar { margin-right: -12px; margin-left: -12px; padding-right: 12px; padding-left: 12px; }
+			.brand small { display: none; }
+			.nav-link { padding: 7px 8px; font-size: 0.7rem; }
+			.profile { grid-template-columns: minmax(0, 1fr) 60px; gap: 10px; }
+			.profile-photo { width: 58px; height: 58px; }
+			#site-footer { padding: 10px 12px; font-size: 0.75rem; }
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<a class="brand" href="index.html" aria-label="TheLanout SiteSaver home">
+			<img src="Site-Saver-icon.png" alt="">
+			<strong>TheLanout <small>About</small></strong>
+		</a>
+		<nav aria-label="Site navigation">
+			<a class="nav-link" href="https://www.thelanout.net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+			<a class="nav-link" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg>SiteSaver</a>
+			<a class="nav-link" href="https://discord.gg/Q2wegsaMNt" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Discord</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="profile" aria-labelledby="about-title">
+			<div>
+				<p class="eyebrow">About me</p>
+				<h1 id="about-title">Hi, I’m LanAriesEchos.</h1>
+				<p class="intro">I’m into technology in all its forms—from building useful web projects and tinkering with hardware to repairing and refurbishing devices. I enjoy figuring out how things work and finding practical ways to make tech more useful.</p>
+			</div>
+			<div class="profile-photo">
+				<img class="profile-image" src="profile.png" alt="Profile photo of LanAriesEchos">
+			</div>
+		</section>
+
+		<div class="details">
+			<section class="detail-section" aria-labelledby="projects-title">
+				<h2 id="projects-title">What I’m working on</h2>
+				<p><a class="project-link" href="index.html">TheLanout SiteSaver</a> keeps bookmarks close at hand, with browser imports, pinned favorites, and local backups.</p>
+				<p>I’m also working toward starting a small business focused on refurbishing devices, offering free data destruction for devices being disposed of, and providing tech repair.</p>
+			</section>
+			<section class="detail-section" aria-labelledby="contact-title">
+				<h2 id="contact-title">Find me online</h2>
+				<p>Follow along, watch my videos, or come say hello.</p>
+				<div class="social-links">
+					<a class="social-link" href="https://discord.gg/Q2wegsaMNt" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Discord</a>
+					<a class="social-link" href="https://www.youtube.com/@lanariesechos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg>YouTube</a>
+					<a class="social-link patreon" href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v18M14 3a7 7 0 1 1 0 14H5"/></svg>Patreon</a>
+				</div>
+			</section>
+		</div>
+
+		<section class="mission-support" aria-labelledby="magicians-program-title">
+			<h2 id="magicians-program-title">The Magicians Program</h2>
+			<p>Volunteers are welcome to help refurbish technology and reduce e-waste. I can document the hours you contribute for your school’s volunteer requirements.</p>
+		</section>
+
+		<section class="mission-support" aria-labelledby="mission-support-title">
+			<h2 id="mission-support-title">Support the mission</h2>
+			<p>If you’d like to help, donations on Patreon will support my goal of reducing e-waste and getting useful technology to communities and schools that need it.</p>
+			<a class="social-link patreon" href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v18M14 3a7 7 0 1 1 0 14H5"/></svg>Support on Patreon</a>
+		</section>
+	</main>
+
+	<footer id="site-footer">
+		© 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+	</footer>
+</body>
+</html>
