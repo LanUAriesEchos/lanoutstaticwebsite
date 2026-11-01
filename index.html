@@ -1,44 +1,231 @@
 <!DOCTYPE html>
-<!-- Hello I SEEEEEE YOUUUUUUUU...... lol But serious if you are opening this on a website and you dont know what this is you should probobly close it. If you want to learn what this is go to https://www.thelanout.net/tkh/WebBrowser/BrowserHTMLConsole/-->
-<html>
-    <head>
-        <title>TheLanout</title>
-        <link rel="icon" type="image/png" href="https://www.thelanout.net/TL.png" </link>
-        <!--GET file reasurce -->
-        <link rel="stylesheet" type="text/css" href="https://www.thelanout.net/RS/TOPNAV.css" />
-        <style>
-            .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-        </style>
-    </head>
-    <body>
-        <div class="topnav">
-            <a class="active" href="https://www.thelanout.net">Home</a>
-            <a href="https://www.thelanout.net/tkh">Technology Help</a>
-            <a href="https://www.thelanout.net/df/">Discord Formatter</a>
-            <a href="https://www.thelanout.net/site-saver">Site Saver</a>
-            <a href="#news">News</a>
-            <a href="#about">About</a>
-          </div>
-        <br>
-        <br>
-        <h1 style="text-align: center; font-size:   100px;">TheLanout</h1>
-        <br><br>
-        <h1 style="text-align: center;">Site Saver!</h1>
-        <h2 style="text-align: center;">Site saver is now fully public and linked on our site. Site saver is a place to save links and for schools to combat link code executing in bookmarks for chromebooks.</h2>
-        <h1 style="text-align: center;"> The Technology help portal is open but there is nothing there but it has been added to the static website.</h1>
-        <h1 style="text-align: center;">Woops! Where down for a little bit!</h1>
-        <h2 style="text-align: center;">Don't worry, well be back soon! For now, you can find us at any of the social links below.</h2>
-        <br>
-        <br>
-        
-        <a href="https://discord.com/invite/NqqGtxAfpc" class="center" style="font-size: x-large; text-align: center;">Discord</a>  <a href="https://www.youtube.com/channel/UCOoC1HJ7aF9niQLTFJh1Ylg" class="center" style="font-size: x-large; text-align: center;">YouTube</a>
-<br>
-<h2 style="text-align: center;">And here is a picture of Katie.</h2>
-<img src="Katie.jpg" alt="Katie the cat." class="center"style="width:550px;height:700px; text-align: center; align-items: center; align-self: center;">>
-    </body>
-</html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>TheLanout</title>
+    <link rel="icon" type="image/png" href="TL.png">
+    <style>
+        :root {
+            color-scheme: dark;
+            --ink: #e4eee9;
+            --muted: #a8bbb2;
+            --paper: #182622;
+            --surface: #22342e;
+            --line: #3b5148;
+            --green: #61b79b;
+            --green-dark: #a5dfc8;
+            --green-wash: #29483c;
+            --coral: #ff9c83;
+            --font-terminal: ui-monospace, "DejaVu Sans Mono", "Liberation Mono", monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 28px 92px;
+            color: var(--ink);
+            background-color: var(--paper);
+            background-image: linear-gradient(rgba(164, 210, 188, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(164, 210, 188, 0.035) 1px, transparent 1px);
+            background-size: 28px 28px;
+            font: 16px/1.6 var(--font-terminal);
+        }
+
+        .topbar {
+            position: sticky;
+            z-index: 5;
+            top: 0;
+            min-height: 70px;
+            margin: -30px -28px 30px;
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: rgba(24, 38, 34, 0.94);
+            border-bottom: 1px solid var(--line);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+            backdrop-filter: blur(14px);
+        }
+
+        .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; text-decoration: none; }
+        .brand-mark { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+        .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+        nav { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+        .nav-link, .action-link {
+            min-height: 38px;
+            padding: 7px 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            font-size: 0.76rem;
+            text-decoration: none;
+            transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+        }
+        .nav-link:hover, .action-link:hover { background: var(--green-wash); border-color: #648477; transform: translateY(-1px); }
+        .nav-link svg, .action-link svg { width: 16px; height: 16px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-link[aria-current="page"] { color: var(--green-dark); border-color: #648477; }
+
+        main { max-width: 1040px; margin: 0 auto; }
+        .hero {
+            padding: 18px 0 30px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            align-items: center;
+            gap: 42px;
+            border-bottom: 1px solid var(--line);
+        }
+        .eyebrow { margin: 0 0 10px; color: var(--green); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; }
+        h1 { margin: 0 0 16px; color: var(--ink); font-size: 2.35rem; line-height: 1.16; }
+        .hero-copy { max-width: 650px; margin: 0; color: var(--muted); font-size: 0.96rem; }
+        .hero-image { width: 165px; height: 220px; justify-self: center; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+
+        .service-notice {
+            margin: 24px 0 0;
+            padding: 15px 18px;
+            background: rgba(255, 156, 131, 0.07);
+            border-left: 3px solid var(--coral);
+        }
+        .service-notice h2 { margin: 0 0 5px; color: var(--coral); font-size: 0.9rem; }
+        .service-notice p { margin: 0; color: var(--muted); font-size: 0.82rem; }
+
+        .section-heading { margin: 30px 0 14px; font-size: 0.98rem; }
+        .project-list { border-top: 1px solid var(--line); }
+        .project-row {
+            padding: 17px 0;
+            display: grid;
+            grid-template-columns: minmax(160px, 0.42fr) minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+        }
+        .project-row h3 { margin: 0; font-size: 0.86rem; }
+        .project-row p { margin: 0; color: var(--muted); font-size: 0.8rem; }
+        .project-row a { color: var(--green-dark); font-size: 0.76rem; white-space: nowrap; text-underline-offset: 3px; }
+
+        .community { padding: 24px 0 30px; border-bottom: 1px solid var(--line); }
+        .community p { margin: 0 0 14px; color: var(--muted); font-size: 0.84rem; }
+        .community-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        #site-footer {
+            position: fixed;
+            z-index: 10;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 12px 18px;
+            color: #e8f2ed;
+            background: #173c35;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        #site-footer a { color: #c8ee82; font-weight: 700; text-decoration: none; }
+        #site-footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 850px) {
+            .topbar { align-items: flex-start; flex-direction: column; gap: 12px; }
+            nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px; }
+            .nav-link { flex: 0 0 auto; }
+        }
+
+        @media (max-width: 620px) {
+            body { padding: 20px 16px 92px; }
+            .topbar { margin: -20px -16px 22px; padding: 12px 16px; }
+            .hero { grid-template-columns: minmax(0, 1fr) 88px; gap: 16px; padding: 8px 0 24px; }
+            h1 { font-size: 1.7rem; }
+            .hero-image { width: 84px; height: 112px; }
+            .project-row { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; }
+            .project-row p { grid-column: 1 / -1; grid-row: 2; }
+            .project-row a { grid-column: 2; grid-row: 1; }
+        }
+
+        @media (max-width: 420px) {
+            body { padding-right: 12px; padding-left: 12px; }
+            .topbar { margin-right: -12px; margin-left: -12px; padding-right: 12px; padding-left: 12px; }
+            .nav-link { padding: 7px 9px; font-size: 0.7rem; }
+            .hero { grid-template-columns: minmax(0, 1fr) 64px; gap: 10px; }
+            h1 { font-size: 1.45rem; }
+            .hero-image { width: 62px; height: 83px; }
+            #site-footer { padding: 10px 12px; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="https://www.thelanout.net" aria-label="TheLanout home">
+            <span class="brand-mark" aria-hidden="true"><img src="TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav aria-label="Main navigation">
+            <a class="nav-link" href="https://www.thelanout.net" aria-current="page">Home</a>
+            <a class="nav-link" href="https://www.thelanout.net/tkh">Technology Help</a>
+            <a class="nav-link" href="https://www.thelanout.net/df/">Discord Formatter</a>
+            <a class="nav-link" href="https://sitesaver.thelanout.net/">SiteSaver</a>
+            <a class="nav-link" href="#news">News</a>
+            <a class="nav-link" href="https://www.thelanout.net/aboutme/aboutme.html">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="home-title">
+            <div>
+                <p class="eyebrow">Technology · tools · community</p>
+                <h1 id="home-title">TheLanout</h1>
+                <p class="hero-copy">A home for practical web tools, technology help, and projects that make everyday tech easier to use.</p>
+                <div class="hero-actions">
+                    <a class="action-link" href="https://sitesaver.thelanout.net/">Explore SiteSaver <span aria-hidden="true">&rarr;</span></a>
+                    <a class="action-link" href="aboutme/aboutme.html">About LanAriesEchos</a>
+                </div>
+            </div>
+            <img class="hero-image" src="Katie.jpg" alt="Katie the cat">
+        </section>
+
+        <aside class="service-notice" role="status">
+            <h2>Temporary service notice</h2>
+            <p>TheLanout is working hard on our site for a little bit. We’ll be slow or broken. In the meantime, you can find us through the community links below.</p>
+        </aside>
+
+        <section id="news" aria-labelledby="projects-title">
+            <h2 class="section-heading" id="projects-title">Projects and services</h2>
+            <div class="project-list">
+                <article class="project-row">
+                    <h3>SiteSaver</h3>
+                    <p>Save and organize links, import browser bookmarks, pin favorites, and keep a local backup. Safe Search helps schools prevent executable bookmark URLs.</p>
+                    <a href="https://sitesaver.thelanout.net/">Open SiteSaver &rarr;</a>
+                </article>
+                <article class="project-row">
+                    <h3>Technology Help</h3>
+                    <p>The help portal is part of the site, with more resources planned.</p>
+                    <a href="https://www.thelanout.net/tkh">Visit portal &rarr;</a>
+                </article>
+                <article class="project-row">
+                    <h3>Discord Formatter</h3>
+                    <p>A small tool for formatting content to use in Discord.</p>
+                    <a href="https://www.thelanout.net/df/">Open formatter &rarr;</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="community" aria-labelledby="community-title">
+            <h2 class="section-heading" id="community-title">Stay connected</h2>
+            <p>Join the community or follow the latest videos and projects.</p>
+            <div class="community-links">
+                <a class="action-link" href="https://discord.com/invite/NqqGtxAfpc" target="_blank" rel="noopener">Discord</a>
+                <a class="action-link" href="https://www.youtube.com/@lanariesechos" target="_blank" rel="noopener">YouTube</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+</body>
+</html>
