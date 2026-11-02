@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TL Machine Sheets 1.0</title>
+<link rel="icon" type="image/png" href="TL.png">
+<style>
+    :root {
+        --ink: #193b35; --muted: #5d766d; --paper: #f1f6f3; --surface: #ffffff; --line: #cddbd4;
+        --green: #146b59; --green-wash: #e5f1ec; --coral: #c4462f; --shadow: 0 8px 24px rgba(25, 59, 53, 0.12);
+        --font: ui-monospace, "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace;
+    }
+    body.dark {
+        --ink: #e4eee9; --muted: #a8bbb2; --paper: #182622; --surface: #22342e; --line: #3b5148;
+        --green: #61b79b; --green-wash: #29483c; --coral: #ff9c83; --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background-color: var(--paper); font: 14px/1.5 var(--font);
+        background-image: linear-gradient(rgba(25,59,53,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(25,59,53,0.04) 1px, transparent 1px); background-size: 28px 28px; }
+    .topbar { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 24px; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; }
+    .brand img { width: 30px; height: 30px; }
+    .brand small { color: var(--muted); font-weight: 400; font-size: 0.7rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    button, select, input, textarea { font: inherit; color: var(--ink); }
+    button { padding: 7px 12px; cursor: pointer; color: #fff; background: var(--green); border: 1px solid var(--green); border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
+    body.dark button { color: #10231d; }
+    button.alt { color: var(--ink); background: var(--green-wash); border-color: var(--line); }
+    body.dark button.alt { color: var(--ink); }
+    button.danger { color: var(--coral); background: transparent; border-color: var(--line); }
+    button.tiny { padding: 2px 8px; font-size: 0.72rem; }
+    button:hover { filter: brightness(1.07); }
+    .layout { display: grid; grid-template-columns: minmax(340px, 480px) 1fr; gap: 18px; padding: 18px 24px; align-items: start; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; margin-bottom: 14px; }
+    .panel h2 { margin: 0 0 10px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
+    .grid .full { grid-column: 1 / -1; }
+    label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 2px; }
+    input[type=text], input[type=date], input[type=number], select, textarea { width: 100%; padding: 6px 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; }
+    textarea { resize: vertical; min-height: 60px; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid rgba(20,107,89,0.35); border-color: var(--green); }
+    .seg { display: flex; gap: 0; }
+    .seg button { flex: 1; border-radius: 0; color: var(--ink); background: var(--paper); border-color: var(--line); }
+    .seg button:first-child { border-radius: 4px 0 0 4px; } .seg button:last-child { border-radius: 0 4px 4px 0; }
+    .seg button.on { color: #fff; background: var(--green); border-color: var(--green); }
+    body.dark .seg button { color: var(--ink); }
+    body.dark .seg button.on { color: #10231d; }
+    .diskrow { display: grid; grid-template-columns: 90px 80px 1fr auto; gap: 6px; margin-bottom: 6px; }
+    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; }
+    .checks label { display: flex; align-items: center; gap: 6px; color: var(--ink); font-size: 0.78rem; margin: 0; cursor: pointer; }
+    .logrow { display: grid; grid-template-columns: 120px 1fr 80px auto; gap: 6px; margin-bottom: 6px; }
+    .row { display: flex; gap: 6px; align-items: center; }
+    .row > * { flex: 1; } .row > button { flex: 0 0 auto; }
+    .hint { color: var(--muted); font-size: 0.72rem; margin-top: 4px; }
+    #stage { overflow: auto; padding-bottom: 30px; min-width: 0; }
+    #form { min-width: 0; }
+    @media (min-width: 1001px) { .layout { grid-template-columns: 480px minmax(0, 1fr); } }
+
+    /* ----- Printable sheet (always white) ----- */
+    .sheet { background: #fff; color: #000; box-shadow: var(--shadow); font: 12px/1.35 Arial, Helvetica, sans-serif; padding: 0.4in; margin: 0 auto 18px; }
+    .sheet.page { width: 8.5in; min-height: 11in; }
+    .sheet h1 { margin: 0; font-size: 20px; }
+    .sheet h3 { margin: 12px 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1.5px solid #000; padding-bottom: 2px; }
+    .sheet .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; border-bottom: 3px solid #000; padding-bottom: 8px; }
+    .sheet .sub { color: #444; font-size: 11px; }
+    .sheet table { width: 100%; border-collapse: collapse; }
+    .sheet td, .sheet th { border: 1px solid #000; padding: 3px 6px; text-align: left; vertical-align: top; font-size: 11px; }
+    .sheet th { background: #e6e6e6; font-size: 10px; text-transform: uppercase; }
+    .sheet .kv { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #000; }
+    .sheet .kv div { padding: 3px 6px; border: 0.5px solid #999; min-height: 32px; }
+    .sheet .kv b { display: block; font-size: 9px; text-transform: uppercase; color: #444; }
+    .sheet .chk { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px 10px; }
+    .sheet .box { display: inline-block; width: 10px; height: 10px; border: 1.3px solid #000; margin-right: 5px; vertical-align: -1px; text-align: center; line-height: 8px; font-size: 10px; font-weight: 700; }
+    .sheet .lines div { border-bottom: 1px solid #777; min-height: 20px; white-space: pre-wrap; }
+    .sheet .sig { display: flex; gap: 24px; margin-top: 18px; }
+    .sheet .sig div { flex: 1; border-top: 1px solid #000; padding-top: 2px; font-size: 10px; color: #444; }
+    .bc { text-align: center; }
+    .bc svg { display: block; width: 100%; height: 0.6in; }
+    .bc .code { font: 700 12px "Courier New", monospace; letter-spacing: 0.08em; }
+    .sheet.tag { padding: 0.06in; overflow: hidden; margin: 0; border: 1px dashed #999; }
+    .tag .tagbox { height: 100%; display: flex; flex-direction: column; gap: 3px; border: 2px solid #000; padding: 4px 6px; }
+    .tag .tt { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; border-bottom: 2px solid #000; font-weight: 700; }
+    .tag .tt span:first-child { font-size: 1.05em; } .tag .tt span:last-child { font-size: 0.75em; text-align: right; }
+    .tag .big { font-size: 1.3em; font-weight: 800; line-height: 1.15; }
+    .tag .specs { font-size: 0.8em; line-height: 1.3; }
+    .tag .mlog { width: 100%; border-collapse: collapse; font-size: 0.75em; }
+    .tag .mlog td, .tag .mlog th { border: 1px solid #000; padding: 0 3px; height: 1.6em; text-align: left; }
+    .tag .spacer { flex: 1; }
+    .tag .bc svg { height: 0.42in; }
+    .tag.small .bc svg { height: 0.28in; }
+    .tag.small .tagbox { padding: 2px 4px; gap: 1px; }
+    .tag .bc .code { font-size: 0.9em; line-height: 1.1; }
+    .tag .tagbox { overflow: hidden; }
+    .tag .mlog { table-layout: fixed; }
+    .tag .mlog td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tag .mlog td, .tag .mlog th { height: 1.4em; }
+    .tagsheet { display: flex; flex-wrap: wrap; gap: 0.1in; justify-content: flex-start; background: #fff; padding: 0.25in; width: 8.5in; margin: 0 auto 18px; box-shadow: var(--shadow); }
+    .tagsheet .sheet.tag { box-shadow: none; }
+
+    @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+    @media print {
+        body { background: #fff !important; }
+        .topbar, #form { display: none !important; }
+        .layout { display: block; padding: 0; }
+        #stage { overflow: visible; padding: 0; }
+        .sheet, .tagsheet { box-shadow: none !important; margin: 0 !important; }
+        #out { zoom: 1 !important; }
+        .sheet.page { width: auto; min-height: 0; padding: 0; }
+        .sheet.tag { border-color: transparent; }
+        .tagsheet { padding: 0; width: auto; }
+    }
+    @page { size: letter; margin: 0.4in; }
+    .full { position: relative; }
+    .cpu-menu { position: absolute; left: 0; right: 0; top: 100%; z-index: 30; max-height: 280px; overflow-y: auto; background: var(--surface); border: 1.5px solid var(--green); border-radius: 8px; box-shadow: var(--shadow); margin-top: 2px; }
+    .cpu-menu[hidden] { display: none; }
+    .cpu-menu .grp { padding: 5px 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--green-wash); position: sticky; top: 0; }
+    .cpu-menu .opt { padding: 6px 10px; font-size: 13px; cursor: pointer; color: var(--ink); }
+    .cpu-menu .opt:hover, .cpu-menu .opt.on { background: var(--green-wash); color: var(--green); }
+</style>
+</head>
+<body>
+<header class="topbar">
+    <div class="brand"><img src="TL.png" alt="">TL Machine Sheets <small>1.0</small></div>
+    <div class="actions">
+        <button id="printBtn">🖨 Print</button>
+        <button class="alt" id="saveBtn">💾 Save record</button>
+        <button class="alt" id="newBtn">New</button>
+        <button class="alt" id="themeBtn" title="Toggle dark mode">🌙</button>
+    </div>
+</header>
+
+<div class="layout">
+<div id="form">
+    <div class="panel">
+        <h2>Output</h2>
+        <div class="seg" id="modeSeg">
+            <button data-mode="sheet" class="on">Work sheet</button>
+            <button data-mode="idtag">ID tag</button>
+            <button data-mode="mtag">Maintenance tag</button>
+        </div>
+        <div class="grid" style="margin-top:8px" id="tagOpts">
+            <div><label>Tag size</label>
+                <select id="tagSize">
+                    <option value="4x2">4 × 2 in (shipping label)</option>
+                    <option value="3x2">3 × 2 in</option>
+                    <option value="4x3">4 × 3 in</option>
+                    <option value="2.25x1.25">2.25 × 1.25 in (small)</option>
+                    <option value="5x3.5">5 × 3.5 in (large)</option>
+                </select></div>
+            <div><label>Copies on the page</label><input type="number" id="copies" min="1" max="24" value="1"></div>
+        </div>
+        <div class="hint" id="modeHint"></div>
+    </div>
+
+    <div class="panel">
+        <h2>Identification &amp; barcode</h2>
+        <div class="grid">
+            <div class="full"><label>Asset ID (barcode value, Code 128)</label>
+                <div class="row"><input type="text" data-k="id" id="idIn" autocomplete="off"><button class="alt" id="genId" type="button">New ID</button></div></div>
+            <div><label>Hostname / name</label><input type="text" data-k="host"></div>
+            <div><label>Type / role</label>
+                <select data-k="type"><option>Desktop</option><option>Laptop</option><option>Server</option><option>Workstation</option><option>All-in-one</option><option>Mini PC / NUC</option><option>Chromebook</option><option>Tablet</option><option>Raspberry Pi / SBC</option><option>VM host</option><option>Other</option></select></div>
+            <div><label>Customer / owner</label><input type="text" data-k="customer"></div>
+            <div><label>Location / rack / bench</label><input type="text" data-k="location"></div>
+            <div><label>Make</label><input type="text" data-k="make" placeholder="Dell, HP, Lenovo…"></div>
+            <div><label>Model</label><input type="text" data-k="model"></div>
+            <div><label>Serial / service tag</label><input type="text" data-k="serial"></div>
+            <div><label>Operating system</label><input type="text" data-k="os" placeholder="Windows 11 Pro, Ubuntu 24.04…"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Hardware</h2>
+        <div class="grid">
+            <div class="full"><label>CPU (pick from the TLCPU list or type your own)</label>
+                <input type="text" data-k="cpu" id="cpuIn"                 placeholder="Start typing, e.g. i5-8250U, Xeon Gold or EPYC" autocomplete="off" role="combobox" aria-expanded="false">
+                                <div id="cpuMenu" class="cpu-menu" hidden></div></div>
+            <div><label>CPU count / sockets</label><input type="text" data-k="cpuCount" placeholder="1"></div>
+            <div><label>RAM total</label><input type="text" data-k="ram" placeholder="16 GB"></div>
+            <div><label>RAM type / config</label><input type="text" data-k="ramType" placeholder="DDR4 2×8 GB"></div>
+            <div><label>GPU</label><input type="text" data-k="gpu"></div>
+        </div>
+        <label style="margin-top:10px">Disks</label>
+        <div id="disks"></div>
+        <button class="alt tiny" id="addDisk" type="button">+ Add disk</button>
+        <div class="grid" style="margin-top:10px">
+            <div><label>IP address(es)</label><input type="text" data-k="ip"></div>
+            <div><label>MAC address(es)</label><input type="text" data-k="mac"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Work performed</h2>
+        <div class="grid" style="margin-bottom:8px">
+            <div><label>Date</label><input type="date" data-k="date"></div>
+            <div><label>Technician</label><input type="text" data-k="tech"></div>
+            <div><label>Ticket / job #</label><input type="text" data-k="ticket"></div>
+            <div><label>Status</label>
+                <select data-k="status"><option>In progress</option><option>Complete</option><option>Waiting on parts</option><option>Waiting on customer</option><option>Needs follow-up</option></select></div>
+        </div>
+        <div class="checks" id="checks"></div>
+        <div class="grid" style="margin-top:8px">
+            <div class="full"><label>Other work / details</label><textarea data-k="work"></textarea></div>
+            <div class="full"><label>Parts used / replaced</label><textarea data-k="parts" style="min-height:44px"></textarea></div>
+            <div class="full"><label>Notes / issues found</label><textarea data-k="notes" style="min-height:44px"></textarea></div>
+            <div><label>Next service due</label><input type="date" data-k="next"></div>
+            <div><label>Warranty / expires</label><input type="text" data-k="warranty"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Maintenance history (printed on the tag / sheet)</h2>
+        <div id="log"></div>
+        <button class="alt tiny" id="addLog" type="button">+ Add entry</button>
+        <button class="alt tiny" id="logFromWork" type="button">Add this work as an entry</button>
+    </div>
+
+    <div class="panel">
+        <h2>Saved records (this browser)</h2>
+        <div class="row"><input type="text" id="scanIn" placeholder="Scan or type an Asset ID, press Enter" autocomplete="off"></div>
+        <div class="hint">A barcode scanner types the ID like a keyboard, so scanning here loads the record.</div>
+        <div id="records" style="margin-top:8px"></div>
+        <div class="row" style="margin-top:8px">
+            <button class="alt tiny" id="exportBtn" type="button">Export JSON</button>
+            <button class="alt tiny" id="importBtn" type="button">Import JSON</button>
+            <input type="file" id="importFile" accept=".json,application/json" hidden>
+        </div>
+    </div>
+</div>
+
+<div id="stage"><div id="out"></div></div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    function $(id) { return document.getElementById(id); }
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+    // ---------- CPU list (identical to the TLCPU catalog) ----------
+    var CATALOG = [];
+    function add(prefix, list) { list.split(/\s+/).forEach(function (x) { if (x) CATALOG.push(prefix + x.replace(/_/g, ' ')); }); }
+    add('Intel Core ', 'i3-2100 i5-2400 i5-2500K i7-2600K i3-3220 i5-3470 i5-3570K i7-3770 i7-3770K i3-4130 i5-4460 i5-4590 i5-4690K i7-4770 i7-4790 i7-4790K ' +
+        'i5-5200U i7-5500U i7-5775C i7-5820K i3-6100 i5-6200U i5-6400 i5-6500 i5-6600K i7-6500U i7-6700 i7-6700K i7-6700HQ i7-6800K ' +
+        'i3-7100 i5-7200U i5-7400 i5-7500 i5-7600K i7-7500U i7-7700 i7-7700K i7-7700HQ i7-7820HQ i7-7820X ' +
+        'i3-8100 i3-8350K i5-8250U i5-8265U i5-8300H i5-8400 i5-8600K i7-8550U i7-8565U i7-8700 i7-8700K i7-8750H ' +
+        'i3-9100 i5-9300H i5-9400 i5-9400F i5-9600K i7-9700 i7-9700K i7-9750H i9-9900 i9-9900K i9-9900KS ' +
+        'i3-10100 i3-10110U i5-10210U i5-1035G1 i5-10400 i5-10400F i5-10600K i7-10510U i7-1065G7 i7-10700 i7-10700K i7-10750H i9-10900 i9-10900K ' +
+        'i3-1115G4 i5-1135G7 i5-11400 i5-11600K i7-1165G7 i7-1185G7 i7-11700K i7-11800H i9-11900K ' +
+        'i3-12100 i5-1235U i5-12400 i5-12600K i7-1255U i7-12700 i7-12700H i7-12700K i9-12900K ' +
+        'i3-13100 i5-13400 i5-13600K i7-1355U i7-13700H i7-13700K i9-13900K i9-13980HX i5-14400 i5-14600K i7-14700K i7-14700HX i9-14900K');
+    add('Intel Core ', 'Ultra_5_125H Ultra_7_155H Ultra_9_185H Ultra_5_225 Ultra_7_265K Ultra_9_285K Ultra_7_258V Ultra_9_288V');
+    add('Intel Core ', '2_Duo_E6600 2_Duo_E8400 2_Duo_T7500 2_Duo_P8600 2_Quad_Q6600 2_Quad_Q9400 m3-6Y30 m3-7Y30 m5-6Y54');
+    add('Intel Pentium ', 'D_820 Dual-Core_E5200 G620 G2020 G3258 G4400 G4560 G5400 G6400 Gold_4425Y Silver_N5000 Silver_J5005 N3700 N6000');
+    add('Intel Celeron ', 'G530 G1610 G3900 G4900 G5905 J1900 N2830 N3050 N3350 N4000 N4020 N4120 N5095 N5105 J4005 J4125 3865U 5205U 6305');
+    add('Intel ', 'Processor_N95 Processor_N100 Processor_N150 Processor_N200 Processor_N305 Atom_x5-Z8350 Atom_x6425E');
+    add('Intel Xeon ', 'X5650 X5690 E3-1220_v3 E3-1230_v3 E3-1240_v5 E3-1270_v5 E5-1650 E5-2620 E5-2620_v2 E5-2630_v3 E5-2650_v2 E5-2670 E5-2680_v2 E5-2680_v4 E5-2690_v4 E5-2699_v4 E7-4870 E7-8890_v4 ' +
+        'E-2124 E-2134 E-2176G E-2224 E-2288G E-2314 E-2388G D-1521 D-1541 D-2123IT D-2146NT W-2123 W-2145 W-2295 W-3175X W-3375 w3-2425 w5-2465X w7-3465X w9-3495X ' +
+        'Bronze_3104 Bronze_3204 Silver_4110 Silver_4210 Silver_4314 Silver_4410Y Gold_5118 Gold_5218 Gold_6130 Gold_6148 Gold_6248 Gold_6338 Gold_6430 Platinum_8180 Platinum_8280 Platinum_8380 Platinum_8480 6_6710E 6_6780E 6_6980P');
+    add('AMD ', 'A4-3300 A4-3400 A4-4000 A4-5000 A4-6300 A4-7300 A4-9120 A4-9125 A6-3500 A6-5400K A6-6400K A6-7400K A6-9220 A6-9225 ' +
+        'A8-3850 A8-5500 A8-6600K A8-7600 A8-9600 A10-5800K A10-6800K A10-7850K A10-9700 A12-9800 A12-9800E');
+    add('AMD ', 'E1-1200 E2-3000 E-300 E-350 E-450 C-50 C-60 Sempron_145 Phenom_II_X4_955 Phenom_II_X6_1090T Athlon_II_X4_640 Athlon_X4_860K ' +
+        'FX-4300 FX-6300 FX-8320 FX-8350 FX-9590 Opteron_6380');
+    add('AMD ', 'Athlon_200GE Athlon_300U Athlon_3000G Athlon_Silver_3050U Athlon_Gold_3150U');
+    add('AMD Ryzen ', '3_1200 3_2200G 3_2200U 3_3100 3_3300U 3_4100 3_5300G 5_1600 5_1600X 5_2400G 5_2500U 5_2600 5_2600X 5_3400G 5_3500U 5_3500 5_3600 5_3600X ' +
+        '5_4500U 5_4500 5_5500U 5_5500 5_5600 5_5600G 5_5600X 5_5625U 5_7600 5_7600X 5_8600G 5_9600X 7_1700 7_1800X 7_2700 7_2700U 7_2700X 7_3700U 7_3700X 7_3800X ' +
+        '7_4700U 7_5700G 7_5700U 7_5700X 7_5800X 7_5800X3D 7_6800H 7_7735HS 7_7700 7_7700X 7_7800X3D 7_7840HS 7_9700X 7_9800X3D 9_3900X 9_3950X 9_5900X 9_5900HX 9_5950X ' +
+        '9_6900HX 9_7900 9_7900X 9_7945HX 9_7950X 9_7950X3D 9_9900X 9_9950X AI_7_350 AI_9_HX_370 Z1_Extreme');
+    add('AMD Ryzen Threadripper ', '1950X 2990WX 3970X 5975WX 7980X');
+    add('AMD Ryzen Threadripper PRO ', '3945WX 3975WX 3995WX 5945WX 5995WX 7945WX 7995WX');
+    add('AMD EPYC ', '7301 7351 7401 7451 7551 7601 7262 7282 7302 7352 7402 7452 7502 7542 7552 7642 7702 7742 7313 7343 7413 7443 7513 7543 7713 7763 ' +
+        '9124 9254 9354 9454 9534 9654 9754 9965 4244P 4344P 4564P 4584PX 8224P 8324P 8534P');
+    add('AMD ', 'Opteron_2435 Opteron_6174 Opteron_6276 Opteron_3365');
+    add('Qualcomm Snapdragon ', '835 850 7c 7c_Gen_2 8c 8cx_Gen_1 8cx_Gen_2 8cx_Gen_3 X_X1-26-100 X_Plus_X1P-42-100 X_Plus_X1P-64-100 X_Elite_X1E-78-100 X_Elite_X1E-80-100 X_Elite_X1E-84-100 X2_Elite 8_Gen_3 888 865');
+    add('Microsoft ', 'SQ1 SQ2 SQ3');
+    add('Apple ', 'M1 M1_Pro M1_Max M1_Ultra M2 M2_Pro M2_Max M2_Ultra M3 M3_Pro M3_Max M4 M4_Pro M4_Max M5');
+    add('Broadcom ', 'BCM2837_(Raspberry_Pi_3) BCM2711_(Raspberry_Pi_4) BCM2712_(Raspberry_Pi_5)');
+    add('MediaTek ', 'Kompanio_500 Kompanio_520 Kompanio_828 Kompanio_1200 Kompanio_1380 Dimensity_9300 Helio_G99');
+    add('Rockchip ', 'RK3399 RK3588');
+    add('Ampere ', 'Altra_Q80-30 Altra_Max_M128-30 AmpereOne');
+    add('NVIDIA ', 'Tegra_X1 Jetson_Orin Grace');
+    add('Samsung ', 'Exynos_2200 Exynos_2400');
+    add('ARM ', 'Cortex-A53 Cortex-A72 Cortex-A76 Neoverse_N1 Neoverse_V2');
+    add('Huawei ', 'Kunpeng_920');
+    add('Amlogic ', 'S905X3 S922X');
+    add('Intel ', 'Pentium_III_933 Pentium_II_400 Pentium_MMX_166 Pentium_Pro_200 Pentium_M_740 Pentium_4_3.0 Celeron_D_330 486DX2-66 386DX-33');
+    add('AMD ', 'K6-2_500 Duron_800 Athlon_XP_2500+ Athlon_64_3200+ Athlon_64_X2_4200+ Sempron_3000+ Turion_64_X2_TL-60 Athlon_II_X2_250 Phenom_X4_9550');
+    // Custom dropdown (the native datalist popup is unreliable and ungrouped)
+    (function () {
+        var inp = $('cpuIn'), menu = $('cpuMenu'), items = [], active = -1;
+        function group(c) {
+            if (/Xeon|EPYC|Opteron|Threadripper PRO/.test(c)) return 'Server / workstation';
+            if (/^Intel/.test(c)) return 'Intel';
+            if (/^AMD/.test(c)) return 'AMD';
+            return 'ARM / other';
+        }
+        function build() {
+            var q = inp.value.toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').split(/\s+/).filter(Boolean);
+            var hit = CATALOG.filter(function (c) {
+                var l = c.toLowerCase();
+                return q.every(function (t) { return l.indexOf(t) !== -1; });
+            });
+            if (/^(server|xeon|epyc)$/.test(q.join(' '))) hit = CATALOG.filter(function (c) { return group(c) === 'Server / workstation'; });
+            var shown = hit.slice(0, 80), html = '', last = '';
+            items = shown;
+            shown.forEach(function (c, i) {
+                var g = group(c);
+                if (g !== last) { html += '<div class="grp">' + g + '</div>'; last = g; }
+                html += '<div class="opt" data-i="' + i + '">' + esc(c) + '</div>';
+            });
+            if (!shown.length) html = '<div class="grp">No match - your typed text will be used as-is</div>';
+            else if (hit.length > shown.length) html += '<div class="grp">' + (hit.length - shown.length) + ' more - keep typing to narrow</div>';
+            menu.innerHTML = html; active = -1;
+            menu.hidden = false; inp.setAttribute('aria-expanded', 'true');
+        }
+        function close() { menu.hidden = true; inp.setAttribute('aria-expanded', 'false'); }
+        function pick(i) {
+            if (!items[i]) return;
+            inp.value = items[i]; close();
+            inp.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        function mark() {
+            var o = menu.querySelectorAll('.opt');
+            Array.prototype.forEach.call(o, function (e, i) { e.classList.toggle('on', i === active); });
+            if (o[active]) o[active].scrollIntoView({ block: 'nearest' });
+        }
+        inp.addEventListener('input', build);
+        inp.addEventListener('focus', build);
+        inp.addEventListener('keydown', function (e) {
+            if (menu.hidden) { if (e.key === 'ArrowDown') build(); return; }
+            if (e.key === 'ArrowDown') { active = Math.min(items.length - 1, active + 1); mark(); e.preventDefault(); }
+            else if (e.key === 'ArrowUp') { active = Math.max(0, active - 1); mark(); e.preventDefault(); }
+            else if (e.key === 'Enter' && active >= 0) { pick(active); e.preventDefault(); }
+            else if (e.key === 'Escape') close();
+        });
+        menu.addEventListener('mousedown', function (e) {
+            var t = e.target.closest('.opt');
+            if (t) { e.preventDefault(); pick(+t.getAttribute('data-i')); }
+        });
+        document.addEventListener('mousedown', function (e) { if (e.target !== inp && !menu.contains(e.target)) close(); });
+        inp.addEventListener('blur', function () { setTimeout(close, 120); });
+    })();
+
+    // ---------- Code 128 (subset B) ----------
+    var P = '212222 222122 222221 121223 121322 131222 122213 122312 132212 221213 221312 231212 112232 122132 122231 113222 123122 123221 223211 221132 221231 213212 223112 312131 311222 321122 321221 312212 322112 322211 212123 212321 232121 111323 131123 131321 112313 132113 132311 211313 231113 231311 112133 112331 132131 113123 113321 133121 313121 211331 231131 213113 213311 213131 311123 311321 331121 312113 312311 332111 314111 221411 431111 111224 111422 121124 121421 141122 141221 112214 112412 122114 122411 142112 142211 241211 221114 413111 241112 134111 111242 121142 121241 114212 124112 124211 411212 421112 421211 212141 214121 412121 111143 111341 131141 114113 114311 411113 411311 113141 114131 311141 411131 211412 211214 211232 2331112'.split(' ');
+    function code128(text) {
+        var vals = [104], sum = 104, i;
+        for (i = 0; i < text.length; i++) {
+            var c = text.charCodeAt(i);
+            if (c < 32 || c > 126) c = 63;
+            vals.push(c - 32); sum += (c - 32) * (i + 1);
+        }
+        vals.push(sum % 103); vals.push(106);
+        return vals.map(function (v) { return P[v]; }).join('');
+    }
+    function barcodeSvg(text) {
+        if (!text) return '';
+        var pat = code128(text), x = 10, bars = '', bar = true;
+        for (var i = 0; i < pat.length; i++) {
+            var w = +pat[i];
+            if (bar) bars += '<rect x="' + x + '" y="0" width="' + w + '" height="50"/>';
+            x += w; bar = !bar;
+        }
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + (x + 10) + ' 50" preserveAspectRatio="none" shape-rendering="crispEdges" fill="#000">' + bars + '</svg>';
+    }
+
+    // ---------- State ----------
+    var WORK = ['Cleaned / dusted', 'Thermal paste / cooling service', 'RAM added / replaced', 'Drive added / replaced', 'OS installed / reinstalled', 'Windows / OS updates',
+        'BIOS / firmware updated', 'Drivers installed', 'Data backup / migration', 'Hardware diagnostics passed', 'Virus / malware removal', 'Battery replaced',
+        'Fan replaced', 'PSU replaced', 'Secure wipe', 'Burn-in / stress test', 'Network configured', 'Inventory tagged'];
+    var d;
+    function newId() {
+        var a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s = '';
+        for (var i = 0; i < 5; i++) s += a[Math.floor(Math.random() * a.length)];
+        var t = new Date();
+        return 'TL-' + String(t.getFullYear()).slice(2) + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + s;
+    }
+    function today() { var t = new Date(); return t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2); }
+    function blank() {
+        return { mode: 'sheet', tagSize: '4x2', copies: 1, id: newId(), host: '', type: 'Desktop', customer: '', location: '', make: '', model: '', serial: '', os: '',
+            cpu: '', cpuCount: '', ram: '', ramType: '', gpu: '', disks: [{ type: 'SSD', size: '', model: '' }], ip: '', mac: '',
+            date: today(), tech: '', ticket: '', status: 'In progress', checks: [], work: '', parts: '', notes: '', next: '', warranty: '', log: [] };
+    }
+
+    // ---------- Form <-> state ----------
+    var MODE_HINT = {
+        sheet: 'Full-page work sheet: specs, checklist, notes and sign-off with a scannable barcode.',
+        idtag: 'Compact system/server identification tag: name, role, specs, location and a barcode.',
+        mtag: 'Maintenance record tag: ID, barcode and a service history grid you can write on and keep on the machine.'
+    };
+    function fill() {
+        document.querySelectorAll('[data-k]').forEach(function (el) { el.value = d[el.dataset.k] == null ? '' : d[el.dataset.k]; });
+        $('tagSize').value = d.tagSize; $('copies').value = d.copies;
+        document.querySelectorAll('#modeSeg button').forEach(function (b) { b.classList.toggle('on', b.dataset.mode === d.mode); });
+        $('tagOpts').style.display = d.mode === 'sheet' ? 'none' : '';
+        $('modeHint').textContent = MODE_HINT[d.mode];
+        drawDisks(); drawChecks(); drawLog(); drawRecords(); render();
+    }
+    function drawDisks() {
+        $('disks').innerHTML = d.disks.map(function (k, i) {
+            return '<div class="diskrow"><select data-di="' + i + '" data-f="type">' + ['SSD', 'NVMe', 'HDD', 'SSHD', 'eMMC', 'SD', 'USB', 'RAID'].map(function (t) { return '<option' + (t === k.type ? ' selected' : '') + '>' + t + '</option>'; }).join('') + '</select>' +
+                '<input type="text" data-di="' + i + '" data-f="size" placeholder="500 GB" value="' + esc(k.size) + '">' +
+                '<input type="text" data-di="' + i + '" data-f="model" placeholder="Model / serial" value="' + esc(k.model) + '">' +
+                '<button class="danger tiny" data-deldisk="' + i + '" type="button">✕</button></div>';
+        }).join('');
+    }
+    function drawChecks() {
+        $('checks').innerHTML = WORK.map(function (w, i) {
+            return '<label><input type="checkbox" data-ck="' + i + '"' + (d.checks.indexOf(w) >= 0 ? ' checked' : '') + '>' + esc(w) + '</label>';
+        }).join('');
+    }
+    function drawLog() {
+        $('log').innerHTML = d.log.map(function (l, i) {
+            return '<div class="logrow"><input type="date" data-li="' + i + '" data-f="date" value="' + esc(l.date) + '">' +
+                '<input type="text" data-li="' + i + '" data-f="work" placeholder="Work done" value="' + esc(l.work) + '">' +
+                '<input type="text" data-li="' + i + '" data-f="tech" placeholder="Tech" value="' + esc(l.tech) + '">' +
+                '<button class="danger tiny" data-dellog="' + i + '" type="button">✕</button></div>';
+        }).join('');
+    }
+
+    document.addEventListener('input', function (e) {
+        var el = e.target;
+        if (el.dataset.k) d[el.dataset.k] = el.value;
+        else if (el.dataset.di != null) d.disks[+el.dataset.di][el.dataset.f] = el.value;
+        else if (el.dataset.li != null) d.log[+el.dataset.li][el.dataset.f] = el.value;
+        else if (el.dataset.ck != null) {
+            var w = WORK[+el.dataset.ck], ix = d.checks.indexOf(w);
+            if (el.checked && ix < 0) d.checks.push(w); else if (!el.checked && ix >= 0) d.checks.splice(ix, 1);
+        } else if (el.id === 'tagSize') d.tagSize = el.value;
+        else if (el.id === 'copies') d.copies = Math.max(1, Math.min(24, +el.value || 1));
+        else return;
+        render();
+    });
+    $('modeSeg').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        d.mode = b.dataset.mode; fill();
+    });
+    $('addDisk').onclick = function () { d.disks.push({ type: 'SSD', size: '', model: '' }); drawDisks(); render(); };
+    $('disks').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-deldisk]'); if (!b) return;
+        d.disks.splice(+b.dataset.deldisk, 1); drawDisks(); render();
+    });
+    $('addLog').onclick = function () { d.log.push({ date: today(), work: '', tech: d.tech }); drawLog(); render(); };
+    $('logFromWork').onclick = function () {
+        var w = d.checks.concat(d.work ? [d.work.replace(/\s*\n\s*/g, '; ')] : []).join(', ');
+        d.log.push({ date: d.date || today(), work: w, tech: d.tech }); drawLog(); render();
+    };
+    $('log').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-dellog]'); if (!b) return;
+        d.log.splice(+b.dataset.dellog, 1); drawLog(); render();
+    });
+    $('genId').onclick = function () { d.id = newId(); $('idIn').value = d.id; render(); };
+
+    // ---------- Rendering ----------
+    function cell(label, v) { return '<div><b>' + esc(label) + '</b>' + esc(v) + '</div>'; }
+    function disksList() { return d.disks.filter(function (k) { return k.size || k.model; }); }
+    function title() { return d.host || [d.make, d.model].filter(Boolean).join(' ') || d.type; }
+    function barcodeBlock() { return '<div class="bc">' + barcodeSvg(d.id) + '<div class="code">' + esc(d.id) + '</div></div>'; }
+
+    function sheetHtml() {
+        var box = function (on) { return '<span class="box">' + (on ? '✓' : '') + '</span>'; };
+        var rows = disksList().map(function (k) { return '<tr><td>' + esc(k.type) + '</td><td>' + esc(k.size) + '</td><td>' + esc(k.model) + '</td></tr>'; }).join('') || '<tr><td colspan="3">&nbsp;</td></tr>';
+        var log = d.log.map(function (l) { return '<tr><td>' + esc(l.date) + '</td><td>' + esc(l.work) + '</td><td>' + esc(l.tech) + '</td></tr>'; }).join('');
+        for (var i = d.log.length; i < 4; i++) log += '<tr><td>&nbsp;</td><td></td><td></td></tr>';
+        return '<div class="sheet page">' +
+            '<div class="head"><div><h1>' + esc(title()) + '</h1><div class="sub">' + esc([d.type, d.customer && ('Customer: ' + d.customer), d.location && ('Location: ' + d.location)].filter(Boolean).join('  |  ')) + '</div>' +
+            '<div class="sub">Machine work sheet' + (d.ticket ? ' · Job #' + esc(d.ticket) : '') + ' · ' + esc(d.date) + '</div></div><div style="width:2.6in">' + barcodeBlock() + '</div></div>' +
+            '<h3>System</h3><div class="kv">' + cell('Make', d.make) + cell('Model', d.model) + cell('Serial / service tag', d.serial) +
+            cell('Operating system', d.os) + cell('CPU', d.cpu + (d.cpuCount && d.cpuCount !== '1' ? ' ×' + d.cpuCount : '')) + cell('GPU', d.gpu) +
+            cell('RAM', d.ram) + cell('RAM type / config', d.ramType) + cell('Warranty', d.warranty) +
+            cell('IP address(es)', d.ip) + cell('MAC address(es)', d.mac) + cell('Status', d.status) + '</div>' +
+            '<h3>Disks</h3><table><tr><th style="width:18%">Type</th><th style="width:18%">Size</th><th>Model / serial</th></tr>' + rows + '</table>' +
+            '<h3>Work performed</h3><div class="chk">' + WORK.map(function (w) { return '<div>' + box(d.checks.indexOf(w) >= 0) + esc(w) + '</div>'; }).join('') + '</div>' +
+            '<div class="lines" style="margin-top:6px"><div><b>Details:</b> ' + esc(d.work) + '</div><div></div><div></div></div>' +
+            '<h3>Parts used / replaced</h3><div class="lines"><div>' + esc(d.parts) + '</div><div></div></div>' +
+            '<h3>Notes / issues found</h3><div class="lines"><div>' + esc(d.notes) + '</div><div></div><div></div></div>' +
+            '<h3>Maintenance history</h3><table><tr><th style="width:16%">Date</th><th>Work done</th><th style="width:18%">Tech</th></tr>' + log + '</table>' +
+            '<div class="sub" style="margin-top:6px">Next service due: <b>' + esc(d.next || '________________') + '</b></div>' +
+            '<div class="sig"><div>Technician: ' + esc(d.tech) + '</div><div>Customer signature</div><div>Date</div></div></div>';
+    }
+
+    function tagHtml() {
+        var sz = d.tagSize.split('x'), w = parseFloat(sz[0]), h = parseFloat(sz[1]);
+        var fs = Math.max(8, Math.min(14, Math.round(Math.min(w * 3.6, h * 6) * 1.2)));
+        var inner;
+        var specLines = [d.cpu, [d.ram, d.ramType].filter(Boolean).join(' '), disksList().map(function (k) { return [k.size, k.type].filter(Boolean).join(' '); }).join(' + ')].filter(Boolean);
+        if (d.mode === 'idtag') {
+            inner = '<div class="tt"><span>' + esc(d.type.toUpperCase()) + (d.customer ? ' — ' + esc(d.customer) : '') + '</span><span>TL ID TAG</span></div>' +
+                '<div class="big">' + esc(title()) + '</div>' +
+                '<div class="specs">' + specLines.map(esc).join('<br>') +
+                (d.os ? '<br>OS: ' + esc(d.os) : '') + (d.ip ? '<br>IP: ' + esc(d.ip) : '') + (d.serial ? '<br>S/N: ' + esc(d.serial) : '') + (d.location ? '<br>Loc: ' + esc(d.location) : '') + '</div>' +
+                '<div class="spacer"></div>' + barcodeBlock();
+        } else {
+            var last = d.log.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; })[0];
+            var total = h >= 3 ? 6 : h >= 2 ? 3 : h >= 1.6 ? 2 : 1;
+            var rows = total > 1 ? d.log.slice(-(total - 1)) : [], r = '';
+            rows.forEach(function (l) { r += '<tr><td>' + esc(l.date) + '</td><td>' + esc(l.work) + '</td><td>' + esc(l.tech) + '</td></tr>'; });
+            var blanks = total - rows.length;
+            for (var i = 0; i < blanks; i++) r += '<tr><td>&nbsp;</td><td></td><td></td></tr>';
+            inner = '<div class="tt"><span>MAINTENANCE RECORD</span><span>' + esc(title()) + '</span></div>' +
+                '<div class="specs"><b>' + esc(d.id) + '</b>' + (d.serial ? ' · S/N ' + esc(d.serial) : '') + (last ? '<br>Last service: ' + esc(last.date) : '') + (d.next ? ' · <b>Next due: ' + esc(d.next) + '</b>' : '') + '</div>' +
+                '<table class="mlog"><tr><th style="width:24%">Date</th><th>Work done</th><th style="width:20%">Tech</th></tr>' + r + '</table>' +
+                '<div class="spacer"></div>' + barcodeBlock();
+        }
+        var one = '<div class="sheet tag' + (h < 1.6 ? ' small' : '') + '" style="width:' + w + 'in;height:' + h + 'in;font-size:' + fs + 'px"><div class="tagbox">' + inner + '</div></div>';
+        var out = '';
+        for (var c = 0; c < d.copies; c++) out += one;
+        return '<div class="tagsheet">' + out + '</div>';
+    }
+
+    function fitTags() {
+        document.querySelectorAll('.sheet.tag').forEach(function (t) {
+            var box = t.firstElementChild, fs = parseFloat(t.style.fontSize);
+            while (box.scrollHeight > box.clientHeight + 1 && fs > 5) { fs -= 0.5; t.style.fontSize = fs + 'px'; }
+        });
+    }
+    function fitZoom() {
+        var w = $('stage').clientWidth, z = Math.min(1, (w - 4) / 820);
+        $('out').style.zoom = z > 0.2 ? z : 1;
+    }
+    window.addEventListener('resize', fitZoom);
+    function render() {
+        $('out').innerHTML = d.mode === 'sheet' ? sheetHtml() : tagHtml();
+        if (d.mode !== 'sheet') fitTags();
+        fitZoom();
+        document.title = 'Machine sheet - ' + d.id;
+    }
+
+    // ---------- Records ----------
+    function getRecs() { try { return JSON.parse(localStorage.getItem('tlint_records') || '{}'); } catch (e) { return {}; } }
+    function putRecs(r) { try { localStorage.setItem('tlint_records', JSON.stringify(r)); } catch (e) { alert('Could not save: browser storage is unavailable.'); } }
+    function drawRecords() {
+        var r = getRecs(), ids = Object.keys(r).sort(function (a, b) { return (r[b]._saved || 0) - (r[a]._saved || 0); });
+        $('records').innerHTML = ids.length ? ids.map(function (id) {
+            var x = r[id];
+            return '<div class="row" style="margin-bottom:4px"><button class="alt" style="text-align:left;flex:1" data-load="' + esc(id) + '">' + esc(id) + ' — ' + esc(x.host || x.model || x.type || '') + '</button><button class="danger tiny" data-del="' + esc(id) + '">✕</button></div>';
+        }).join('') : '<div class="hint">No saved records yet.</div>';
+    }
+    function loadRec(id) {
+        var r = getRecs(); if (!r[id]) return false;
+        d = Object.assign(blank(), JSON.parse(JSON.stringify(r[id]))); delete d._saved; fill(); return true;
+    }
+    $('saveBtn').onclick = function () {
+        if (!d.id) d.id = newId();
+        var r = getRecs(); r[d.id] = JSON.parse(JSON.stringify(d)); r[d.id]._saved = Date.now(); putRecs(r); drawRecords();
+        $('saveBtn').textContent = '✔ Saved'; setTimeout(function () { $('saveBtn').textContent = '💾 Save record'; }, 1200);
+    };
+    $('newBtn').onclick = function () { var m = d.mode, t = d.tagSize; d = blank(); d.mode = m; d.tagSize = t; fill(); };
+    $('records').addEventListener('click', function (e) {
+        var l = e.target.closest('[data-load]'), x = e.target.closest('[data-del]');
+        if (l) loadRec(l.dataset.load);
+        else if (x && confirm('Delete record ' + x.dataset.del + '?')) { var r = getRecs(); delete r[x.dataset.del]; putRecs(r); drawRecords(); }
+    });
+    $('scanIn').addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        var v = this.value.trim(); if (!v) return;
+        var r = getRecs(), hit = Object.keys(r).filter(function (k) { return k.toLowerCase() === v.toLowerCase(); })[0];
+        this.value = '';
+        if (hit) loadRec(hit); else this.placeholder = 'No record for "' + v + '"';
+    });
+    $('exportBtn').onclick = function () {
+        var blob = new Blob([JSON.stringify(getRecs(), null, 2)], { type: 'application/json' });
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'tl-machine-records.json'; a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    };
+    $('importBtn').onclick = function () { $('importFile').click(); };
+    $('importFile').onchange = function () {
+        var f = this.files[0]; if (!f) return;
+        var fr = new FileReader();
+        fr.onload = function () {
+            try {
+                var inc = JSON.parse(fr.result), r = getRecs(), n = 0;
+                Object.keys(inc).forEach(function (k) { if (inc[k] && typeof inc[k] === 'object') { r[k] = inc[k]; n++; } });
+                putRecs(r); drawRecords(); alert('Imported ' + n + ' record(s).');
+            } catch (e) { alert('That file is not valid JSON.'); }
+        };
+        fr.readAsText(f); this.value = '';
+    };
+
+    $('printBtn').onclick = function () { window.print(); };
+    $('themeBtn').onclick = function () {
+        document.body.classList.toggle('dark');
+        try { localStorage.setItem('tlint_dark', document.body.classList.contains('dark') ? '1' : '0'); } catch (e) {}
+        this.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    };
+    try {
+        var dk = localStorage.getItem('tlint_dark');
+        if (dk === '1' || (dk === null && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) { document.body.classList.add('dark'); $('themeBtn').textContent = '☀️'; }
+    } catch (e) {}
+
+    d = blank();
+    fill();
+    window.__tlint = { code128: code128, P: P };
+})();
+</script>
+</body>
+</html>
