@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Top Menu and Bottom Control Bar</title>
+    <style>
+        /* Styling for the fixed top menu bar */
+        .menu-bar {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .menu-item {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .menu-item:hover .dropdown {
+            display: block;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+        .dropdown a {
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        /* Add padding to the body to prevent content from hiding behind the fixed menu */
+        body {
+            margin: 0;
+            padding-top: 50px; /* Adjust based on the menu height */
+            padding-bottom: 60px; /* Adjust based on the control bar height */
+        }
+
+        /* Styling for the bottom control bar */
+        .control-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* Styling for the progress bar */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .progress-time {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #555;
+            width: 0; /* Set initial width to 0 */
+        }
+
+        /* Controls buttons styling */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-button {
+            width: 24px;
+            height: 24px;
+            background-color: #e0e0e0;
+            border: 1px solid #999;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Volume control styling */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .volume-bar {
+            width: 60px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .volume-level {
+            height: 100%;
+            background-color: #76c7c0;
+            width: 60%; /* Initial volume for demo */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fixed Top Menu -->
+<div class="menu-bar">
+    <div class="menu-item">Media
+        <div class="dropdown">
+            <a href="#" onclick="loadPlaylist()">Open Playlist</a>
+        </div>
+    </div>
+    <div class="menu-item">Playback
+        <div class="dropdown">
+            <a href="#" onclick="togglePlayPause()">Play/Pause</a>
+            <a href="#" onclick="stopAudio()">Stop</a>
+        </div>
+    </div>
+    <!-- Other menu items remain the same -->
+</div>
+
+<!-- Bottom Media Control Bar -->
+<div class="control-bar">
+    <div class="controls">
+        <div class="control-button" onclick="togglePlayPause()">⏯</div>
+        <div class="control-button" onclick="prevTrack()">⏮</div>
+        <div class="control-button" onclick="stopAudio()">⏹</div>
+        <div class="control-button" onclick="nextTrack()">⏭</div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-time" id="currentTime">0:00</div>
+        <div class="progress-bar" onclick="seek(event)">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="progress-time" id="duration">0:00</div>
+    </div>
+
+    <div class="volume-container">
+        <span>🔊</span>
+        <input type="range" min="0" max="1" step="0.01" value="1" id="volumeControl" onchange="setVolume(this.value)">
+        <span id="volumeLabel">100%</span>
+    </div>
+</div>
+
+<audio id="audioPlayer"></audio>
+
+<script>
+    let playlist = [];
+    let currentTrackIndex = 0;
+    const audioPlayer = document.getElementById('audioPlayer');
+    const progressBar = document.getElementById('progress');
+    const currentTimeLabel = document.getElementById('currentTime');
+    const durationLabel = document.getElementById('duration');
+    const volumeLabel = document.getElementById('volumeLabel');
+
+    // Polling interval in milliseconds
+    const POLL_INTERVAL = 10000; // 10 seconds
+
+    // Track stream URL (extracted from the playlist)
+    let streamUrl = "";
+
+    // Example Shoutcast stream URL
+    // const shoutcastUrl = 'http://your-shoutcast-stream-url'; // Replace with your stream URL
+
+    // Load and parse a .pls playlist file
+    function loadPlaylist() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.pls';
+        input.onchange = async () => {
+            const file = input.files[0];
+            const text = await file.text();
+            playlist = parsePls(text);
+            currentTrackIndex = 0;
+            playTrack();
+        };
+        input.click();
+    }
+
+    // Parse .pls file content
+    function parsePls(text) {
+        const lines = text.split('\n');
+        const urls = [];
+        lines.forEach(line => {
+            if (line.startsWith('File')) {
+                const url = line.split('=')[1].trim();
+                urls.push(url);
+            }
+        });
+        return urls;
+    }
+
+    // Play the current track and start polling metadata
+    function playTrack() {
+        if (playlist.length === 0) return;
+        const currentTrack = playlist[currentTrackIndex];
+        audioPlayer.src = currentTrack;
+        audioPlayer.play();
+
+        // Extract the domain from the stream URL (base URL)
+        const domain = new URL(currentTrack).hostname;
+        streamUrl = `http://${domain}/stats`;  // Construct the /stats URL
+
+        // Start polling for song title
+        setInterval(fetchSongTitle, POLL_INTERVAL);
+    }
+
+    // Fetch the current song title from the /stats endpoint
+    async function fetchSongTitle() {
+        try {
+            const response = await fetch(streamUrl);
+            const text = await response.text();
+            
+            // Parse the text content to get the song title (assuming it’s in the HTML)
+            const match = text.match(/StreamTitle='([^']+)'/);
+            if (match && match[1]) {
+                const trackName = match[1];
+                const artistName = "Unknown Artist";  // You could extract artist info if available
+                document.title = `Now Playing: ${trackName} - ${artistName}`;
+            }
+        } catch (error) {
+            console.error('Error fetching song title:', error);
+        }
+    }
+
+    // Control Functions
+    function togglePlayPause() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+        } else {
+            audioPlayer.pause();
+        }
+    }
+
+    function stopAudio() {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+    }
+
+    function nextTrack() {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        playTrack();
+    }
+
+    function prevTrack() {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        playTrack();
+    }
+
+    function setVolume(value) {
+        audioPlayer.volume = value;
+        volumeLabel.textContent = `${Math.round(value * 100)}%`;
+    }
+
+    // Update progress bar and time labels
+    audioPlayer.ontimeupdate = () => {
+        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        currentTimeLabel.textContent = formatTime(audioPlayer.currentTime);
+        durationLabel.textContent = formatTime(audioPlayer.duration);
+    };
+
+    function seek(event) {
+        const progressContainer = document.querySelector('.progress-bar');
+        const clickX = event.offsetX;
+        const width = progressContainer.clientWidth;
+        audioPlayer.currentTime = (clickX / width) * audioPlayer.duration;
+    }
+
+    // Format time in minutes and seconds
+    function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${min}:${sec}`;
+    }
+</script>
+
+</body>
+</html>
