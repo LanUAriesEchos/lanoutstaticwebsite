@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Text Editor | TheLanout Tools</title>
+    <link rel="icon" type="image/png" href="../../TL.png">
+    <link rel="stylesheet" href="../../site-shell.css">
+    <style>
+        .editor-heading {
+            padding: 18px 0 24px;
+            border-bottom: 1px solid var(--site-line);
+        }
+
+        .editor-workspace {
+            margin-top: 22px;
+            padding: 18px;
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 5px;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .editor-toolbar input[type="text"],
+        .editor-toolbar select,
+        .editor-toolbar button {
+            min-height: 38px;
+            padding: 7px 10px;
+            color: var(--site-ink);
+            background: var(--site-paper);
+            border: 1px solid var(--site-line);
+            border-radius: 4px;
+            font: 0.78rem var(--site-font);
+        }
+
+        .editor-toolbar input[type="text"] {
+            flex: 1 1 180px;
+        }
+
+        .editor-toolbar button {
+            cursor: pointer;
+        }
+
+        .editor-toolbar button:hover {
+            background: var(--site-green-wash);
+            border-color: var(--site-green);
+        }
+
+        #editor {
+            width: 100%;
+            min-height: min(62vh, 620px);
+            padding: 14px;
+            color: var(--site-ink);
+            background: #101b17;
+            border: 1px solid var(--site-line);
+            border-radius: 4px;
+            font: 0.86rem/1.6 var(--site-font);
+            resize: vertical;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        #instruction {
+            margin: 0 0 12px;
+            color: var(--site-muted);
+            font-size: 0.76rem;
+        }
+
+        .editor-light #editor,
+        .editor-light .editor-toolbar input[type="text"],
+        .editor-light .editor-toolbar select,
+        .editor-light .editor-toolbar button {
+            color: #193b35;
+            background: #f1f6f3;
+            border-color: #b7c9c1;
+        }
+
+        .editor-light #editor {
+            background: #fff;
+        }
+
+        @media (max-width: 620px) {
+            .editor-workspace {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../../" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="../../TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../../">Home</a>
+            <a class="site-nav-link" href="../../tkh/">Technology Help</a>
+            <a class="site-nav-link" href="../" aria-current="page">Tools</a>
+            <a class="site-nav-link" href="../../aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="editor-heading" aria-labelledby="editor-title">
+            <p class="site-eyebrow">TheLanout / Tools</p>
+            <h1 class="site-page-title" id="editor-title">Text Editor</h1>
+            <p class="site-lead">Write or edit text, import a file, and export your work in a format you choose.</p>
+        </section>
+
+        <section class="editor-workspace" aria-label="Text editor">
+            <div class="editor-toolbar">
+                <input type="text" id="fileName" placeholder="File name" aria-label="File name">
+                <select id="fileType" aria-label="Export file type">
+                    <option value=".txt">Text (.txt)</option>
+                    <option value=".html">HTML (.html)</option>
+                    <option value=".css">CSS (.css)</option>
+                    <option value=".properties">Properties (.properties)</option>
+                    <option value=".lic">License (.lic)</option>
+                    <option value=".json">JSON (.json)</option>
+                </select>
+                <button type="button" onclick="exportText()">Export</button>
+                <button type="button" onclick="document.getElementById('fileInput').click()">Import</button>
+                <button type="button" onclick="openInBrowser()">Open in Browser</button>
+                <button type="button" id="themeToggle" onclick="toggleTheme()">Light editor</button>
+                <input type="file" id="fileInput" hidden accept=".txt,.html,.css,.properties,.lic,.json" onchange="importText(event)">
+            </div>
+            <p id="instruction">Use <strong>Ctrl + F</strong> to search for text on this page.</p>
+            <textarea id="editor" placeholder="Type your text here..." spellcheck="false"></textarea>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+
+    <script>
+        const editor = document.getElementById("editor");
+        const fileTypeSelect = document.getElementById("fileType");
+        const fileNameInput = document.getElementById("fileName");
+        const themeToggle = document.getElementById("themeToggle");
+
+        function setEditorTheme(light) {
+            document.body.classList.toggle("editor-light", light);
+            themeToggle.textContent = light ? "Dark editor" : "Light editor";
+            localStorage.setItem("theme", light ? "light" : "dark");
+        }
+
+        function exportText() {
+            const extension = fileTypeSelect.value;
+            const fileName = fileNameInput.value || "document";
+            const mimeType = extension === ".html" ? "text/html" :
+                extension === ".css" ? "text/css" :
+                extension === ".json" ? "application/json" : "text/plain";
+            const blob = new Blob([editor.value], { type: `${mimeType};charset=utf-8` });
+            const download = document.createElement("a");
+            download.href = URL.createObjectURL(blob);
+            download.download = fileName.endsWith(extension) ? fileName : `${fileName}${extension}`;
+            download.click();
+            window.setTimeout(() => URL.revokeObjectURL(download.href), 1000);
+        }
+
+        function importText(event) {
+            const [file] = event.target.files;
+            if (!file) return;
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                editor.value = reader.result;
+                const dot = file.name.lastIndexOf(".");
+                fileNameInput.value = dot > 0 ? file.name.slice(0, dot) : file.name;
+                const extension = dot > 0 ? file.name.slice(dot).toLowerCase() : "";
+                if ([...fileTypeSelect.options].some(option => option.value === extension)) {
+                    fileTypeSelect.value = extension;
+                }
+            });
+            reader.addEventListener("error", () => {
+                document.getElementById("instruction").textContent = `Could not read ${file.name}. Please try another file.`;
+            });
+            reader.readAsText(file);
+        }
+
+        function toggleTheme() {
+            setEditorTheme(!document.body.classList.contains("editor-light"));
+        }
+
+        function openInBrowser() {
+            const newWindow = window.open("about:blank", "_blank");
+            if (!newWindow) {
+                document.getElementById("instruction").textContent = "The browser blocked the new tab. Allow pop-ups and try again.";
+                return;
+            }
+            newWindow.document.open();
+            newWindow.document.write(editor.value);
+            newWindow.document.close();
+        }
+
+        setEditorTheme(localStorage.getItem("theme") === "light");
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+.minecraft-tool {
+    max-width: 900px;
+}
+
+.tool-heading {
+    padding: 18px 0 24px;
+    border-bottom: 1px solid var(--site-line);
+}
+
+.tool-panel {
+    margin-top: 22px;
+    padding: 20px;
+    background: var(--site-surface);
+    border: 1px solid var(--site-line);
+    border-radius: 5px;
+}
+
+.tool-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--site-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+#text {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 11px;
+    color: var(--site-ink);
+    background: var(--site-paper);
+    border: 1px solid var(--site-line);
+    border-radius: 4px;
+    font: 0.86rem var(--site-font);
+}
+
+.section-title {
+    margin: 20px 0 10px;
+    font-size: 0.9rem;
+}
+
+#color-picker,
+#style-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.color-block {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 4px;
+    color: #fff;
+    font: 700 0.72rem var(--site-font);
+    text-shadow: 0 1px 3px #000;
+    cursor: pointer;
+    transition: transform 150ms ease, border-color 150ms ease;
+}
+
+.color-block:hover,
+.color-block:focus-visible {
+    transform: translateY(-2px);
+    border-color: #fff;
+}
+
+#style-buttons button {
+    min-height: 38px;
+    padding: 8px 11px;
+    color: var(--site-ink);
+    background: var(--site-green-wash);
+    border: 1px solid #49675b;
+    border-radius: 4px;
+    font: 0.78rem var(--site-font);
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+#style-buttons button:hover {
+    border-color: var(--site-green);
+}
+
+.output-preview {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.output-preview section {
+    min-width: 0;
+}
+
+#output,
+#preview {
+    min-height: 76px;
+    margin: 0;
+    padding: 12px;
+    color: var(--site-ink);
+    background: var(--site-paper);
+    border: 1px solid var(--site-line);
+    border-radius: 4px;
+    font: 0.86rem/1.6 var(--site-font);
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 620px) {
+    .tool-panel {
+        padding: 14px;
+    }
+
+    .output-preview {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

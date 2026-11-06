@@ -51,7 +51,8 @@
         }
 
         .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; text-decoration: none; }
-        .brand img { width: 30px; height: 30px; object-fit: contain; }
+        .brand-mark { width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
+        .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
         nav { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
         .nav-link, .action-link {
             min-height: 38px;
@@ -113,15 +114,12 @@
 </head>
 <body>
     <header class="topbar">
-        <a class="brand" href="https://www.thelanout.net" aria-label="TheLanout home"><img src="../TL.png" alt="">TheLanout</a>
+        <a class="brand" href="../" aria-label="TheLanout home"><span class="brand-mark" aria-hidden="true"><img src="../TL.png" alt=""></span>TheLanout</a>
         <nav aria-label="Main navigation">
-            <a class="nav-link" href="https://www.thelanout.net">Home</a>
-            <a class="nav-link" href="https://www.thelanout.net/tkh" aria-current="page">Technology Help</a>
-            <a class="nav-link" href="https://www.thelanout.net/df/">Discord Formatter</a>
-            <a class="nav-link" href="https://www.thelanout.net/site-saver">SiteSaver</a>
-            <a class="nav-link" href="https://www.thelanout.net/p/TLCPU/">CPU Checker</a>
-            <a class="nav-link" href="https://www.thelanout.net/#news">News</a>
-            <a class="nav-link" href="https://www.thelanout.net/aboutme/aboutme.html">About</a>
+            <a class="nav-link" href="../">Home</a>
+            <a class="nav-link" href="./" aria-current="page">Technology Help</a>
+            <a class="nav-link" href="../tools/">Tools</a>
+            <a class="nav-link" href="../aboutme/">About</a>
         </nav>
     </header>
 
@@ -135,13 +133,13 @@
                 <p>The portal is being prepared. Help articles and resources will be added here as they become available.</p>
             </div>
             <div class="portal-actions">
-                <a class="action-link" href="https://www.thelanout.net">Back to Home</a>
+                <a class="action-link" href="../">Back to Home</a>
                 <a class="action-link" href="https://discord.com/invite/NqqGtxAfpc" target="_blank" rel="noopener">Ask the community</a>
             </div>
         </section>
         <section class="tools" aria-labelledby="tools-title">
             <h2 id="tools-title">Tools</h2>
-            <a class="tool-card" href="https://www.thelanout.net/p/TLCPU/">
+            <a class="tool-card" href="../tools/cpu-checker/">
                 <div>
                     <span class="tag">New tool</span>
                     <h3>CPU Compatibility Checker</h3>

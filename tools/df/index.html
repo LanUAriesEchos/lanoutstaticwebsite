@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Discord Text Formatter | TheLanout Tools</title>
+    <link rel="icon" type="image/png" href="../../TL.png">
+    <link rel="stylesheet" href="../../site-shell.css">
+    <style>
+        .tool-heading {
+            padding: 18px 0 24px;
+            border-bottom: 1px solid var(--site-line);
+        }
+
+        .formatter {
+            margin-top: 22px;
+            padding: 20px;
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 5px;
+        }
+
+        .formatter-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .formatter-button {
+            min-height: 38px;
+            padding: 8px 11px;
+            color: var(--site-ink);
+            background: #29483c;
+            border: 1px solid #49675b;
+            border-radius: 4px;
+            font: 600 0.78rem var(--site-font);
+            cursor: pointer;
+        }
+
+        .formatter-button:hover {
+            background: #355a4b;
+            border-color: var(--site-green);
+        }
+
+        .formatter-button.primary {
+            color: #173c35;
+            background: var(--site-green-light);
+            border-color: var(--site-green-light);
+        }
+
+        .formatter-label {
+            display: block;
+            margin: 14px 0 6px;
+            color: var(--site-muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        #inputText,
+        #preview {
+            width: 100%;
+            min-height: 260px;
+            padding: 13px;
+            color: var(--site-ink);
+            background: var(--site-paper);
+            border: 1px solid var(--site-line);
+            border-radius: 4px;
+            font: 0.88rem/1.6 var(--site-font);
+            overflow-wrap: anywhere;
+        }
+
+        #inputText {
+            resize: vertical;
+        }
+
+        #preview {
+            white-space: pre-wrap;
+        }
+
+        #preview[hidden] {
+            display: none;
+        }
+
+        #preview code,
+        #preview pre {
+            color: var(--site-green-light);
+            background: #101b17;
+            border-radius: 3px;
+        }
+
+        #preview code {
+            padding: 2px 5px;
+        }
+
+        #preview pre {
+            padding: 12px;
+            overflow-x: auto;
+        }
+
+        #preview .spoiler {
+            padding: 0 4px;
+            color: transparent;
+            background: var(--site-ink);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #preview .spoiler:hover {
+            color: var(--site-paper);
+        }
+
+        #copyStatus {
+            min-height: 1.4em;
+            margin: 10px 0 0;
+            color: var(--site-muted);
+            font-size: 0.76rem;
+        }
+
+        @media (max-width: 620px) {
+            .formatter {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../../" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="../../TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../../">Home</a>
+            <a class="site-nav-link" href="../../tkh/">Technology Help</a>
+            <a class="site-nav-link" href="../" aria-current="page">Tools</a>
+            <a class="site-nav-link" href="../../aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="tool-heading" aria-labelledby="formatter-title">
+            <p class="site-eyebrow">TheLanout / Tools</p>
+            <h1 class="site-page-title" id="formatter-title">Discord Text Formatter</h1>
+            <p class="site-lead">Format text with Discord markdown, preview the result, and copy it when you’re ready.</p>
+        </section>
+
+        <section class="formatter" aria-label="Discord text formatting controls">
+            <div class="formatter-toolbar" aria-label="Formatting">
+                <button class="formatter-button" type="button" data-format="bold"><strong>Bold</strong></button>
+                <button class="formatter-button" type="button" data-format="italic"><em>Italic</em></button>
+                <button class="formatter-button" type="button" data-format="strike"><s>Strikethrough</s></button>
+                <button class="formatter-button" type="button" data-format="inline">Inline code</button>
+                <button class="formatter-button" type="button" data-format="code">Code block</button>
+                <button class="formatter-button" type="button" data-format="spoiler">Spoiler</button>
+                <button class="formatter-button primary" id="copyButton" type="button">Copy</button>
+                <button class="formatter-button" id="previewButton" type="button" aria-pressed="false">Preview</button>
+            </div>
+            <label class="formatter-label" for="inputText">Your text</label>
+            <textarea id="inputText" placeholder="Enter text to format..."></textarea>
+            <div id="preview" aria-label="Formatted text preview" hidden></div>
+            <p id="copyStatus" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+
+    <script>
+        const input = document.getElementById("inputText");
+        const preview = document.getElementById("preview");
+        const previewButton = document.getElementById("previewButton");
+        const copyStatus = document.getElementById("copyStatus");
+
+        function wrapText(type) {
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const selected = input.value.slice(start, end);
+            const wrappers = {
+                bold: ["**", "**"],
+                italic: ["*", "*"],
+                strike: ["~~", "~~"],
+                inline: ["`", "`"],
+                code: ["```\n", "\n```"],
+                spoiler: ["||", "||"]
+            };
+            const [before, after] = wrappers[type];
+            input.setRangeText(`${before}${selected}${after}`, start, end, "select");
+            input.focus();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        function renderPreview(text) {
+            return escapeHtml(text)
+                .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+                .replace(/`([^`]+)`/g, "<code>$1</code>")
+                .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+                .replace(/\*(.+?)\*/g, "<em>$1</em>")
+                .replace(/~~(.+?)~~/g, "<s>$1</s>")
+                .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler">$1</span>');
+        }
+
+        document.querySelectorAll("[data-format]").forEach(button => {
+            button.addEventListener("click", () => wrapText(button.dataset.format));
+        });
+
+        previewButton.addEventListener("click", () => {
+            const showingPreview = !preview.hidden;
+            if (!showingPreview) {
+                preview.innerHTML = renderPreview(input.value);
+            }
+            input.hidden = !showingPreview;
+            preview.hidden = showingPreview;
+            previewButton.textContent = showingPreview ? "Preview" : "Edit";
+            previewButton.setAttribute("aria-pressed", String(!showingPreview));
+        });
+
+        document.getElementById("copyButton").addEventListener("click", async () => {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(input.value);
+                } else {
+                    input.focus();
+                    input.select();
+                    if (!document.execCommand("copy")) {
+                        throw new Error("Copy command was not accepted by the browser.");
+                    }
+                    input.setSelectionRange(input.value.length, input.value.length);
+                }
+                copyStatus.textContent = "Copied to clipboard.";
+            } catch (error) {
+                copyStatus.textContent = "Could not copy automatically. Select the text and copy it manually.";
+            }
+        });
+    </script>
+</body>
+</html>

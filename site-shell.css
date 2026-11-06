@@ -1,0 +1,209 @@
+:root {
+    color-scheme: dark;
+    --site-ink: #e4eee9;
+    --site-muted: #a8bbb2;
+    --site-paper: #182622;
+    --site-surface: #22342e;
+    --site-line: #3b5148;
+    --site-green: #61b79b;
+    --site-green-light: #a5dfc8;
+    --site-green-wash: #29483c;
+    --site-font: ui-monospace, "DejaVu Sans Mono", "Liberation Mono", monospace;
+}
+
+.site-shell,
+.site-shell * {
+    box-sizing: border-box;
+}
+
+body.site-shell {
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px 28px 92px;
+    color: var(--site-ink);
+    background-color: var(--site-paper);
+    background-image:
+        linear-gradient(rgba(164, 210, 188, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(164, 210, 188, 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+    font: 16px/1.6 var(--site-font);
+}
+
+.site-topbar {
+    position: sticky;
+    z-index: 15;
+    top: 0;
+    min-height: 70px;
+    margin: -30px -28px 30px;
+    padding: 12px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: rgba(24, 38, 34, 0.94);
+    border-bottom: 1px solid var(--site-line);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(14px);
+}
+
+.site-brand {
+    min-width: max-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--site-ink);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-brand-mark {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    flex: 0 0 32px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--site-line);
+    border-radius: 4px;
+}
+
+.site-brand-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
+
+.site-nav-link {
+    min-height: 38px;
+    padding: 7px 11px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--site-ink);
+    background: var(--site-surface);
+    border: 1px solid var(--site-line);
+    border-radius: 4px;
+    font-size: 0.76rem;
+    text-decoration: none;
+    transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.site-nav-link:hover,
+.site-nav-link[aria-current="page"] {
+    color: var(--site-green-light);
+    background: var(--site-green-wash);
+    border-color: #648477;
+}
+
+.site-nav-link:hover {
+    transform: translateY(-1px);
+}
+
+.site-main {
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.site-eyebrow {
+    margin: 0 0 10px;
+    color: var(--site-green);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.site-page-title {
+    margin: 0 0 12px;
+    font-size: clamp(1.7rem, 4vw, 2.35rem);
+    line-height: 1.2;
+}
+
+.site-lead {
+    max-width: 680px;
+    margin: 0;
+    color: var(--site-muted);
+    font-size: 0.9rem;
+}
+
+.site-footer {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 12px 18px;
+    color: #e8f2ed;
+    background: #173c35;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.site-footer a {
+    color: #c8ee82;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+    .site-topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .site-nav {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 3px;
+    }
+
+    .site-nav-link {
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 620px) {
+    body.site-shell {
+        padding: 20px 16px 92px;
+    }
+
+    .site-topbar {
+        margin: -20px -16px 22px;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    body.site-shell {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .site-topbar {
+        margin-right: -12px;
+        margin-left: -12px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .site-nav-link {
+        padding: 7px 9px;
+        font-size: 0.7rem;
+    }
+
+    .site-footer {
+        padding: 10px 12px;
+        font-size: 0.75rem;
+    }
+}

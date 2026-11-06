@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Page Not Found | TheLanout</title>
+    <link rel="icon" type="image/png" href="/TL.png">
+    <link rel="stylesheet" href="/site-shell.css">
+    <style>
+        .not-found {
+            padding: 18px 0 28px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+            align-items: center;
+            gap: 38px;
+            border-bottom: 1px solid var(--site-line);
+        }
+
+        .error-code {
+            margin: 0 0 8px;
+            color: var(--site-green);
+            font-size: clamp(3.2rem, 10vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .not-found-copy {
+            max-width: 580px;
+            margin: 0;
+            color: var(--site-muted);
+            font-size: 0.9rem;
+        }
+
+        .cat-card {
+            margin: 0;
+            padding: 10px;
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 5px;
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 230px;
+            display: block;
+            object-fit: cover;
+            background: var(--site-paper);
+            border-radius: 3px;
+        }
+
+        .cat-card figcaption {
+            padding: 9px 2px 1px;
+            color: var(--site-muted);
+            font-size: 0.72rem;
+        }
+
+        .not-found-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .home-action {
+            min-height: 40px;
+            padding: 8px 12px;
+            display: inline-flex;
+            align-items: center;
+            color: var(--site-ink);
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 4px;
+            font-size: 0.78rem;
+            text-decoration: none;
+        }
+
+        .home-action.primary {
+            color: #173c35;
+            background: var(--site-green-light);
+            border-color: var(--site-green-light);
+            font-weight: 700;
+        }
+
+        .home-action:hover {
+            border-color: var(--site-green);
+        }
+
+        #redirect-countdown {
+            margin: 12px 0 0;
+            color: var(--site-muted);
+            font-size: 0.76rem;
+        }
+
+        @media (max-width: 620px) {
+            .not-found {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .cat-card {
+                max-width: 360px;
+            }
+
+            .cat-card img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="/" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="/TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="/">Home</a>
+            <a class="site-nav-link" href="/tkh/">Technology Help</a>
+            <a class="site-nav-link" href="/tools/">Tools</a>
+            <a class="site-nav-link" href="/aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="not-found" aria-labelledby="error-title">
+            <div>
+                <p class="site-eyebrow">TheLanout / Lost page</p>
+                <p class="error-code" aria-hidden="true">404</p>
+                <h1 class="site-page-title" id="error-title">We couldn’t find that page.</h1>
+                <p class="not-found-copy">The link may be outdated, or the page may have moved. Here’s a cat while you find your way back.</p>
+                <div class="not-found-actions">
+                    <a class="home-action primary" href="/">Go to Home</a>
+                    <a class="home-action" href="/tools/">Browse Tools</a>
+                </div>
+                <p id="redirect-countdown" role="status" aria-live="polite">Returning to the home page in 10 seconds.</p>
+            </div>
+            <figure class="cat-card">
+                <img id="random-cat" alt="A random cat from TheLanout cat gallery">
+                <figcaption>A random cat from the Cats gallery</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+
+    <script>
+        const catImages = [
+            "Cats/image2.jpg",
+            "Cats/image3.png",
+            "Cats/image4.png",
+            "Cats/image5.jpg",
+            "Cats/image6.jpg",
+            "Cats/image8.jpg",
+            "Cats/image9.png",
+            "Cats/image10.png",
+            "Cats/image11.jpg",
+            "Cats/image12.jpg",
+            "Cats/image13.jpg",
+            "Cats/image14.png",
+            "Cats/image15.png",
+            "Cats/image16.png",
+            "Cats/image17.png",
+            "Cats/image18.png",
+            "Cats/image19.png",
+            "Cats/image20.png",
+            "Cats/image21.png",
+            "Cats/image22.png",
+            "Cats/image23.png",
+            "Cats/image24.jpg",
+            "Cats/image25.jpg",
+            "Cats/image26.jpg",
+            "Cats/image27.png",
+            "Cats/image28.png"
+        ];
+        const randomCat = document.getElementById("random-cat");
+        const countdown = document.getElementById("redirect-countdown");
+        const redirectDelay = 10;
+        let secondsRemaining = redirectDelay;
+
+        randomCat.addEventListener("error", () => {
+            randomCat.alt = "The cat photo could not be loaded.";
+            randomCat.hidden = true;
+        });
+
+        randomCat.src = "/" + catImages[Math.floor(Math.random() * catImages.length)];
+
+        const redirectTimer = window.setInterval(() => {
+            secondsRemaining -= 1;
+            if (secondsRemaining <= 0) {
+                window.clearInterval(redirectTimer);
+                window.location.replace("/");
+                return;
+            }
+            countdown.textContent = `Returning to the home page in ${secondsRemaining} seconds.`;
+        }, 1000);
+    </script>
+</body>
+</html>

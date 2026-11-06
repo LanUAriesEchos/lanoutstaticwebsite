@@ -2,3 +2,8 @@ https://www.thelanout.net
 https://www.thelanout.net/readme.md
 https://www.thelanout.net/Katie.jpg
 https://www.thelanout.net/site-saver/
+https://www.thelanout.net/tools/
+https://www.thelanout.net/tools/cpu-checker/
+https://www.thelanout.net/tools/text-edit/
+https://www.thelanout.net/tools/minecraftcodesrs/
+https://www.thelanout.net/tools/df/

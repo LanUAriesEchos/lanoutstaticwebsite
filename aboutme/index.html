@@ -52,7 +52,8 @@
 		}
 
 		.brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
-		.brand img { width: 32px; height: 32px; object-fit: contain; }
+		.brand-mark { width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
+		.brand-mark img { width: 100%; height: 100%; object-fit: contain; }
 		.brand strong { font-size: 0.9rem; }
 		.brand small { color: var(--muted); font-size: 0.7rem; font-weight: 400; }
 		.topbar nav { display: flex; align-items: center; gap: 8px; }
@@ -140,8 +141,6 @@
 		}
 		#site-footer a { color: #c8ee82; font-weight: 700; text-decoration: none; }
 		#site-footer a:hover { text-decoration: underline; }
-		body.dark-mode #site-footer { color: var(--ink); background: #101b17; }
-		body.dark-mode #site-footer a { color: #c8ee82; }
 
 		@media (max-width: 650px) {
 			body { padding: 20px 16px 92px; }
@@ -164,14 +163,15 @@
 </head>
 <body>
 	<header class="topbar">
-		<a class="brand" href="index.html" aria-label="TheLanout SiteSaver home">
-			<img src="https://www.thelanout.net/TL.png" alt="">
+		<a class="brand" href="../" aria-label="TheLanout home">
+			<span class="brand-mark" aria-hidden="true"><img src="../TL.png" alt=""></span>
 			<strong>TheLanout <small>About</small></strong>
 		</a>
 		<nav aria-label="Site navigation">
-			<a class="nav-link" href="https://www.thelanout.net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg>Home</a>
-			<a class="nav-link" href="https://sitesaver.thelanout.net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg>SiteSaver</a>
-			<a class="nav-link" href="https://discord.gg/Q2wegsaMNt" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Discord</a>
+			<a class="nav-link" href="../">Home</a>
+			<a class="nav-link" href="../tkh/">Technology Help</a>
+			<a class="nav-link" href="../tools/">Tools</a>
+			<a class="nav-link" href="./" aria-current="page">About</a>
 		</nav>
 	</header>
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Tools | TheLanout</title>
+    <link rel="icon" type="image/png" href="../TL.png">
+    <link rel="stylesheet" href="../site-shell.css">
+    <style>
+        .tools-intro {
+            padding: 18px 0 28px;
+            border-bottom: 1px solid var(--site-line);
+        }
+
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+            gap: 14px;
+            padding: 22px 0;
+        }
+
+        .tool-card {
+            min-height: 180px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: var(--site-ink);
+            background: linear-gradient(135deg, var(--site-green-wash), var(--site-surface));
+            border: 1px solid var(--site-line);
+            border-left: 4px solid var(--site-green);
+            border-radius: 5px;
+            text-decoration: none;
+            transition: transform 150ms ease, border-color 150ms ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--site-green-light);
+        }
+
+        .tool-card h2 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+
+        .tool-card p {
+            margin: 0 0 16px;
+            color: var(--site-muted);
+            font-size: 0.82rem;
+        }
+
+        .tool-card span {
+            margin-top: auto;
+            color: var(--site-green-light);
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="../TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../">Home</a>
+            <a class="site-nav-link" href="../tkh/">Technology Help</a>
+            <a class="site-nav-link" href="./" aria-current="page">Tools</a>
+            <a class="site-nav-link" href="../aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="tools-intro" aria-labelledby="tools-title">
+            <p class="site-eyebrow">TheLanout / Tools</p>
+            <h1 class="site-page-title" id="tools-title">Tools</h1>
+            <p class="site-lead">A collection of quick, browser-based helpers for everyday tasks.</p>
+        </section>
+
+        <section class="tool-list" aria-label="Available tools">
+            <a class="tool-card" href="cpu-checker/">
+                <h2>CPU Compatibility Checker</h2>
+                <p>Check processor and device compatibility with Windows, Linux, ChromeOS, and virtual machines.</p>
+                <span>Open CPU checker &rarr;</span>
+            </a>
+            <a class="tool-card" href="text-edit/">
+                <h2>Text Editor</h2>
+                <p>Edit, import, export, and preview plain text and common web files in your browser.</p>
+                <span>Open text editor &rarr;</span>
+            </a>
+            <a class="tool-card" href="minecraftcodesrs/">
+                <h2>Minecraft Color Codes</h2>
+                <p>Apply Minecraft color and style codes to text and preview the result.</p>
+                <span>Open color code tool &rarr;</span>
+            </a>
+            <a class="tool-card" href="df/">
+                <h2>Discord Text Formatter</h2>
+                <p>Format text with Discord markdown, preview it, and copy it to your clipboard.</p>
+                <span>Open Discord formatter &rarr;</span>
+            </a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+</body>
+</html>
