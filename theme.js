@@ -134,6 +134,16 @@
             box.remove();
         });
         document.body.appendChild(box);
+        // Reserve room under the page so the notice never covers the footer.
+        function reserve() {
+            document.body.style.paddingBottom = (box.offsetHeight + 56) + 'px';
+        }
+        reserve();
+        window.addEventListener('resize', reserve);
+        box.querySelector('button').addEventListener('click', function () {
+            document.body.style.paddingBottom = '';
+            window.removeEventListener('resize', reserve);
+        });
     }
 
     function init() {

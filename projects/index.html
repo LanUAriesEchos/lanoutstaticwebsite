@@ -318,11 +318,43 @@
         <p class="no-results" id="empty">No projects match your search.</p>
     </main>
 
-    <footer class="site-footer">
-        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    <footer class="tl-footer">
+        <div class="tl-footer-top">
+            <div class="tl-footer-about">
+                <a class="tl-footer-brand" href="../"><img src="../TL.png" alt="">TheLanout</a>
+                <p>Practical web tools, technology help and projects. We never share any of your data.</p>
+            </div>
+            <nav aria-label="Explore">
+                <h2>Explore</h2>
+                <ul>
+                    <li><a href="../">Home</a></li>
+                    <li><a href="../tkh/">Technology Help</a></li>
+                    <li><a href="../tools/">Tools</a></li>
+                    <li><a href="../projects/">Projects</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Community">
+                <h2>Community</h2>
+                <ul>
+                    <li><a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Discord</a></li>
+                    <li><a href="https://www.youtube.com/@lanariesechos" target="_blank" rel="noopener">YouTube</a></li>
+                    <li><a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Patreon</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Legal">
+                <h2>About</h2>
+                <ul>
+                    <li><a href="../aboutme/">About us</a></li>
+                    <li><a href="../privacy/">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="tl-footer-bottom">
+            <span>&copy; 2015 - 2026 TheLanout</span>
+            <span>NowPointServer X (10)</span>
+        </div>
     </footer>
-
-    <script>
+<script>
         const list = document.getElementById('list');
         const rows = [...list.children];
         const search = document.getElementById('search');
