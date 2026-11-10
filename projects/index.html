@@ -175,7 +175,10 @@
         .no-results { display: none; padding: 30px; text-align: center; color: var(--site-muted); border: 1px dashed var(--site-line); border-radius: 12px; }
 
         @media (max-width: 640px) {
-            .legal-notice { flex-direction: column; text-align: center; }
+            .legal-notice { margin-bottom: 18px; padding: 12px 14px; gap: 12px; }
+            .legal-notice .triangle { width: 48px; height: 48px; }
+            .legal-notice h2 { margin-bottom: 3px; font-size: 0.95rem; letter-spacing: 0.05em; }
+            .legal-notice p { font-size: 0.82rem; line-height: 1.4; }
             .project-row { grid-template-columns: 72px minmax(0, 1fr); }
             .row-icon { width: 72px; height: 72px; grid-row: 1 / span 2; }
             .row-tags { grid-column: 1 / -1; }
@@ -236,8 +239,8 @@
                 <circle cx="50" cy="75" r="5" fill="#fff"/>
             </svg>
             <div>
-                <h2>Legal Notice</h2>
-                <p>If any projects are redistributed, we will SUE / go to court.</p>
+                <h2>Do Not Redistribute</h2>
+                <p>Re-uploading or sharing our projects is prohibited. We will take legal action against anyone who does.</p>
             </div>
         </section>
 

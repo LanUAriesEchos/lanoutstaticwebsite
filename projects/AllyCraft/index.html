@@ -38,6 +38,10 @@
 
         .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
         @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            .notice { padding: 10px 12px; gap: 10px; font-size: 0.8rem; line-height: 1.4; }
+            .notice svg { width: 30px; height: 30px; }
+        }
 
         .content { padding: 24px; }
         .content h2 { margin: 24px 0 10px; font-size: 1.25rem; padding-bottom: 6px; border-bottom: 1px solid var(--site-line); }
@@ -120,7 +124,7 @@
                 <rect x="46" y="34" width="8" height="30" rx="3" fill="#fff"/>
                 <circle cx="50" cy="75" r="5" fill="#fff"/>
             </svg>
-            <span>If any projects are redistributed, we will SUE / go to court.</span>
+            <span>Do not redistribute. Re-uploading or sharing this project is prohibited, and we will take legal action.</span>
         </section>
 
         <section class="card project-header">
