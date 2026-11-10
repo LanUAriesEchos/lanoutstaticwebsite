@@ -1,0 +1,201 @@
+.nav-dropdown {
+    position: relative;
+    display: inline-flex;
+}
+
+.nav-menu {
+    position: absolute;
+    z-index: 50;
+    top: 100%;
+    left: 0;
+    width: min(320px, calc(100vw - 24px));
+    overflow-y: auto;
+    padding-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 150ms ease, transform 150ms ease, visibility 150ms;
+}
+
+.nav-dropdown:hover .nav-menu,
+.nav-dropdown:focus-within .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.nav-menu-inner {
+    padding: 6px;
+    display: grid;
+    gap: 2px;
+    background: var(--tl-surface, #22342e);
+    border: 1px solid var(--tl-line, #3b5148);
+    border-radius: 8px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.nav-menu-item {
+    padding: 9px 11px;
+    display: block;
+    color: var(--tl-ink, #e4eee9);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+.nav-menu-item strong {
+    display: block;
+    font-size: 0.8rem;
+}
+
+.nav-menu-item span {
+    display: block;
+    margin-top: 2px;
+    color: var(--tl-muted, #a8bbb2);
+    font-size: 0.7rem;
+}
+
+.nav-menu-item:hover,
+.nav-menu-item:focus-visible {
+    background: var(--tl-wash, #29483c);
+    outline: 0;
+}
+
+.nav-menu-item:hover strong,
+.nav-menu-item:focus-visible strong {
+    color: var(--tl-accent, #a5dfc8);
+}
+
+.nav-menu-all {
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid var(--tl-line, #3b5148);
+    border-radius: 0 0 5px 5px;
+    color: var(--tl-accent, #a5dfc8);
+    font-weight: 700;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+@media (max-width: 850px) {
+    header.site-topbar,
+    header.topbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
+    header .nav-toggle {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        justify-self: start;
+        min-height: 38px;
+        padding: 7px 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--tl-ink, #e4eee9);
+        background: var(--tl-surface, #22342e);
+        border: 1px solid var(--tl-line, #3b5148);
+        border-radius: 4px;
+        font: inherit;
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    header .nav-toggle svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    header .nav-toggle:hover,
+    header .nav-toggle[aria-expanded="true"] {
+        color: var(--tl-accent, #a5dfc8);
+        background: var(--tl-wash, #29483c);
+        border-color: var(--tl-line-hi, #648477);
+    }
+
+    header[class] nav {
+        order: 3;
+        grid-column: 1 / -1;
+        grid-row: 4;
+        justify-self: stretch;
+        display: none;
+        flex: 0 0 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 6px;
+        overflow: visible;
+        padding-bottom: 0;
+    }
+
+    header.nav-open[class] nav {
+        display: flex;
+    }
+
+    header[class] nav > a,
+    header[class] nav .nav-dropdown > a {
+        width: 100%;
+        flex: 0 0 auto;
+        justify-content: flex-start;
+    }
+
+    .nav-dropdown {
+        display: block;
+        width: 100%;
+    }
+
+    .nav-dropdown > a::after {
+        content: "\25BE";
+        margin-left: auto;
+        transition: transform 150ms ease;
+    }
+
+    .nav-dropdown.open > a::after {
+        transform: rotate(180deg);
+    }
+
+    .nav-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        padding-top: 6px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        overflow: visible;
+    }
+
+    .nav-dropdown:hover .nav-menu,
+    .nav-dropdown:focus-within .nav-menu {
+        display: none;
+    }
+
+    .nav-dropdown.open .nav-menu {
+        display: block;
+    }
+
+    .nav-menu-inner {
+        box-shadow: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-menu {
+        transition: none;
+    }
+}

@@ -93,6 +93,10 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../../nav-dropdown.css">
+    <link rel="stylesheet" href="../../theme.css">
+    <script src="../../theme.js"></script>
+    <script src="../../nav-dropdown.js" defer></script>
 </head>
 <body class="site-shell">
     <header class="site-topbar">
@@ -103,8 +107,23 @@
         <nav class="site-nav" aria-label="Main navigation">
             <a class="site-nav-link" href="../../">Home</a>
             <a class="site-nav-link" href="../../tkh/">Technology Help</a>
-            <a class="site-nav-link" href="../" aria-current="page">Tools</a>
-            <a class="site-nav-link" href="../../aboutme/">About</a>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../" aria-current="page">Tools</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../../tools/cpu-checker/"><strong>CPU Compatibility Checker</strong><span>Check processor compatibility with Windows, Linux, ChromeOS and VMs.</span></a>
+                    <a class="nav-menu-item" href="../../tools/text-edit/"><strong>Text Editor</strong><span>Edit, import, export and preview text and web files.</span></a>
+                    <a class="nav-menu-item" href="../../tools/minecraftcodesrs/"><strong>Minecraft Color Codes</strong><span>Apply Minecraft color and style codes to text.</span></a>
+                    <a class="nav-menu-item" href="../../tools/df/"><strong>Discord Text Formatter</strong><span>Format text with Discord markdown and copy it.</span></a>
+                    <a class="nav-menu-item nav-menu-all" href="../../tools/">All tools &rarr;</a>
+                </div></div>
+            </div>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../../aboutme/">About</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../../aboutme/"><strong>About TheLanout</strong><span>Who we are and how to reach us.</span></a>
+                    <a class="nav-menu-item" href="../../privacy/"><strong>Privacy Policy</strong><span>We never share any of your data.</span></a>
+                </div></div>
+            </div>
         </nav>
     </header>
 
