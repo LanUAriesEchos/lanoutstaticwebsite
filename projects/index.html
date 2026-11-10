@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Projects | TheLanout</title>
+    <link rel="icon" type="image/png" href="../TL.png">
+    <link rel="stylesheet" href="../site-shell.css">
+    <style>
+        .projects-intro {
+            padding: 18px 0 20px;
+        }
+
+        .legal-notice {
+            margin: 6px 0 30px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #ffd9d9;
+            background: linear-gradient(135deg, rgba(120, 10, 10, 0.55), rgba(60, 8, 8, 0.8));
+            border: 2px solid #ff3b3b;
+            border-radius: 8px;
+            box-shadow: 0 0 28px rgba(255, 59, 59, 0.35);
+        }
+
+        .legal-notice .triangle {
+            flex: none;
+            width: 96px;
+            height: 96px;
+            filter: drop-shadow(0 0 10px rgba(255, 59, 59, 0.8));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .legal-notice h2 {
+            margin: 0 0 6px;
+            color: #ff4d4d;
+            font-size: 1.3rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .legal-notice p {
+            margin: 0;
+            color: #ff7b7b;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        @keyframes pulse {
+            50% { transform: scale(1.08); }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+            gap: 22px;
+            padding-bottom: 22px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            padding: 28px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(circle at 100% 0, rgba(97, 183, 155, 0.28), transparent 55%),
+                linear-gradient(145deg, var(--site-green-wash), var(--site-surface));
+            border: 1px solid var(--site-line);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--site-green), var(--site-green-light), var(--site-green));
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--site-green-light);
+            box-shadow: 0 16px 40px rgba(97, 183, 155, 0.25);
+        }
+
+        .project-badge {
+            align-self: flex-start;
+            padding: 3px 10px;
+            color: var(--site-paper);
+            background: var(--site-green-light);
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .project-card h2 {
+            margin: 16px 0 4px;
+            font-size: 2.2rem;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #ffffff, var(--site-green-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-model {
+            margin: 0 0 14px;
+            color: var(--site-green);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+        }
+
+        .project-card p {
+            margin: 0;
+            color: var(--site-muted);
+            font-size: 0.9rem;
+        }
+
+        .project-card p.project-model {
+            margin: 0 0 14px;
+            color: var(--site-green);
+            font-size: 1.1rem;
+        }
+
+        .project-thumb { position: absolute; top: 22px; right: 22px; width: 72px; height: 72px; border-radius: 14px; border: 2px solid var(--site-green); }
+
+        a.project-card {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .project-link {
+            margin-top: auto;
+            padding-top: 16px;
+            color: var(--site-green-light);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 560px) {
+            .legal-notice { flex-direction: column; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .legal-notice .triangle { animation: none; }
+            .project-card { transition: none; }
+        }
+    </style>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="../TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../">Home</a>
+            <a class="site-nav-link" href="../tkh/">Technology Help</a>
+            <a class="site-nav-link" href="../tools/">Tools</a>
+            <a class="site-nav-link" href="./" aria-current="page">Projects</a>
+            <a class="site-nav-link" href="../aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="projects-intro" aria-labelledby="projects-title">
+            <p class="site-eyebrow">TheLanout / Projects</p>
+            <h1 class="site-page-title" id="projects-title">Projects</h1>
+            <p class="site-lead">Things we are building at TheLanout.</p>
+        </section>
+
+        <section class="legal-notice" role="alert" aria-label="Legal notice">
+            <svg class="triangle" viewBox="0 0 100 100" aria-hidden="true">
+                <polygon points="50,6 96,90 4,90" fill="#ff3b3b" stroke="#ffb3b3" stroke-width="4" stroke-linejoin="round"/>
+                <rect x="46" y="34" width="8" height="30" rx="3" fill="#fff"/>
+                <circle cx="50" cy="75" r="5" fill="#fff"/>
+            </svg>
+            <div>
+                <h2>Legal Notice</h2>
+                <p>If any projects are redistributed, we will SUE / go to court.</p>
+            </div>
+        </section>
+
+        <section class="project-grid" aria-label="Projects">
+            <article class="project-card">
+                <span class="project-badge">Project</span>
+                <h2>Gavril</h2>
+                <p class="project-model">3800</p>
+                <p>Gavril 3800 &mdash; a TheLanout project. More details coming soon.</p>
+            </article>
+            <article class="project-card">
+                <span class="project-badge">Project</span>
+                <h2>Gavril</h2>
+                <p class="project-model">4700</p>
+                <p>Gavril 4700 &mdash; a TheLanout project. More details coming soon.</p>
+            </article>
+            <a class="project-card" href="AllyCraft/">
+                <img class="project-thumb" src="AllyCraft/Thumb.png" alt="">
+                <span class="project-badge">Modpack</span>
+                <h2>AllyCraft</h2>
+                <p class="project-model">ROG ALLY / STEAM DECK</p>
+                <p>Minecraft tuned for handhelds, with controller support, performance tweaks and shader support.</p>
+                <span class="project-link">Open AllyCraft &rarr;</span>
+            </a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        © 2015 - 2026 TheLanout | <a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Donate on Patreon</a> | <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join our Discord Server!</a> NowPointServer X (10)
+    </footer>
+</body>
+</html>
