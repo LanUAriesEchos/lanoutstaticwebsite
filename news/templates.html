@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <meta name="robots" content="noindex">
+    <title>News Post Templates | TheLanout</title>
+    <link rel="icon" type="image/png" href="../TL.png">
+    <link rel="stylesheet" href="../site-shell.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="../nav-dropdown.css">
+    <link rel="stylesheet" href="../theme.css">
+    <script src="../theme.js"></script>
+    <script src="../nav-dropdown.js" defer></script>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../">
+            <img src="../TL.png" alt="" width="32" height="32">
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../">Home</a>
+            <a class="site-nav-link" href="../tkh/">Technology Help</a>
+            <a class="site-nav-link" href="../tools/">Tools</a>
+            <a class="site-nav-link" href="../projects/">Projects</a>
+            <a class="site-nav-link" href="./" aria-current="page">News</a>
+            <a class="site-nav-link" href="../aboutme/">About</a>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="news-intro" aria-labelledby="tpl-title">
+            <p class="site-eyebrow">TheLanout / News / Templates</p>
+            <h1 class="site-page-title" id="tpl-title">Post templates</h1>
+            <p class="lede">Click <strong>Copy HTML</strong> on a template, then paste it into the feed in <code>news/index.html</code>. Images, videos and audio fit the post automatically. Put your files in <code>news/media/</code>.</p>
+        </section>
+
+        <div id="templates"></div>
+
+        <template data-template="Text post" data-note="Title, date, category and some text.">
+            <article class="post" id="my-post-id" data-date="2026-11-10" data-category="Update">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Update</span>
+                    <a class="post-link" href="#my-post-id" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-post-id">Post title</a></h2>
+                <div class="post-body">
+                    <p>Write your update here. Add more paragraphs, <a href="https://discord.gg/hS2VFxDU3B">links</a> and lists as needed.</p>
+                    <ul>
+                        <li>First point</li>
+                        <li>Second point</li>
+                    </ul>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="Single image" data-note="One picture at full post width, with an optional caption. Click to enlarge.">
+            <article class="post" id="my-image-post" data-date="2026-11-10" data-category="Update">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Update</span>
+                    <a class="post-link" href="#my-image-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-image-post">Post title</a></h2>
+                <div class="post-body">
+                    <p>Short description.</p>
+                    <figure>
+                        <img src="../TL.png" alt="Describe the picture">
+                        <figcaption>Optional caption</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="Image gallery" data-note="Any number of images. They tile into an even grid that adapts to the screen. Click to enlarge.">
+            <article class="post" id="my-gallery-post" data-date="2026-11-10" data-category="Update">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Update</span>
+                    <a class="post-link" href="#my-gallery-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-gallery-post">Post title</a></h2>
+                <div class="post-body">
+                    <p>Work in progress shots.</p>
+                    <div class="gallery">
+                        <img src="../TL.png" alt="Screenshot 1">
+                        <img src="../TL.png" alt="Screenshot 2">
+                        <img src="../TL.png" alt="Screenshot 3">
+                    </div>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="Video file" data-note="An .mp4 you upload to news/media/. Add poster= for a preview picture.">
+            <article class="post" id="my-video-post" data-date="2026-11-10" data-category="Video">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Video</span>
+                    <a class="post-link" href="#my-video-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-video-post">Post title</a></h2>
+                <div class="post-body">
+                    <p>Short description.</p>
+                    <figure>
+                        <video src="media/your-video.mp4" poster="media/your-poster.jpg" playsinline></video>
+                        <figcaption>Optional caption</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="YouTube / Vimeo embed" data-note="Replace VIDEO_ID with the ID from the YouTube link. Keeps a 16:9 box at any size.">
+            <article class="post" id="my-embed-post" data-date="2026-11-10" data-category="Video">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Video</span>
+                    <a class="post-link" href="#my-embed-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-embed-post">Post title</a></h2>
+                <div class="post-body">
+                    <p>Short description.</p>
+                    <div class="embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Video title" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="Audio" data-note="An .mp3 or .ogg you upload to news/media/.">
+            <article class="post" id="my-audio-post" data-date="2026-11-10" data-category="Audio">
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Audio</span>
+                    <a class="post-link" href="#my-audio-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-audio-post">Post title</a></h2>
+                <div class="post-body">
+                    <p>Short description.</p>
+                    <div class="audio">
+                        <strong>Track name</strong>
+                        <audio src="media/your-audio.mp3"></audio>
+                    </div>
+                </div>
+            </article>
+        </template>
+
+        <template data-template="Release announcement" data-note="Pinned post with a heading, a quote and a download button. Remove data-pinned to un-pin.">
+            <article class="post" id="my-release-post" data-date="2026-11-10" data-category="Release" data-pinned>
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Release</span>
+                    <a class="post-link" href="#my-release-post" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#my-release-post">Project 1.0 is out</a></h2>
+                <div class="post-body">
+                    <p>Summary of the release.</p>
+                    <h3>What's new</h3>
+                    <ul>
+                        <li>Change one</li>
+                        <li>Change two</li>
+                    </ul>
+                    <blockquote>Please do not redistribute our projects.</blockquote>
+                    <a class="btn-link" href="../projects/">View project</a>
+                </div>
+            </article>
+        </template>
+    </main>
+
+    <footer class="tl-footer">
+        <div class="tl-footer-top">
+            <div class="tl-footer-about">
+                <a class="tl-footer-brand" href="../"><img src="../TL.png" alt="">TheLanout</a>
+                <p>Practical web tools, technology help and projects. We never share any of your data.</p>
+            </div>
+            <nav aria-label="Explore">
+                <h2>Explore</h2>
+                <ul>
+                    <li><a href="../">Home</a></li>
+                    <li><a href="../tkh/">Technology Help</a></li>
+                    <li><a href="../tools/">Tools</a></li>
+                    <li><a href="../projects/">Projects</a></li>
+                    <li><a href="./">News</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Legal">
+                <h2>About</h2>
+                <ul>
+                    <li><a href="../aboutme/">About us</a></li>
+                    <li><a href="../privacy/">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="tl-footer-bottom">
+            <span>&copy; 2015 - 2026 TheLanout</span>
+            <span>NowPointServer X (10)</span>
+        </div>
+    </footer>
+    <script src="news.js"></script>
+</body>
+</html>

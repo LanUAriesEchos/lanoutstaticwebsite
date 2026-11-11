@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#182622">
     <title>Projects | TheLanout</title>
+    <meta name="description" content="Projects from TheLanout: AllyCraft, Meshflow and BeamNG.drive bus mods in the works.">
+    <link rel="canonical" href="https://www.thelanout.net/projects/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TheLanout">
+    <meta property="og:title" content="Projects | TheLanout">
+    <meta property="og:description" content="Projects from TheLanout: AllyCraft, Meshflow and BeamNG.drive bus mods in the works.">
+    <meta property="og:url" content="https://www.thelanout.net/projects/">
+    <meta property="og:image" content="https://www.thelanout.net/TL.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Projects | TheLanout">
+    <meta name="twitter:description" content="Projects from TheLanout: AllyCraft, Meshflow and BeamNG.drive bus mods in the works.">
+    <meta name="twitter:image" content="https://www.thelanout.net/TL.png">
     <link rel="icon" type="image/png" href="../TL.png">
     <link rel="stylesheet" href="../site-shell.css">
     <style>
@@ -31,7 +43,7 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        .legal-notice h2 { margin: 0 0 6px; color: #ff4d4d; font-size: 1.3rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .legal-notice h2 { margin: 0 0 6px; color: #ff6b6b; font-size: 1.3rem; letter-spacing: 0.08em; text-transform: uppercase; }
         .legal-notice p { margin: 0; color: #ff7b7b; font-size: 1.05rem; font-weight: 700; }
 
         @keyframes pulse { 50% { transform: scale(1.08); } }
@@ -81,18 +93,137 @@
             font-size: 0.85rem;
         }
 
-        .toolbar select {
+        .toolbar .sort-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 4px 4px 12px;
+            color: var(--site-muted);
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+
+        .dropdown { position: relative; }
+
+        .dd-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
             color: var(--site-ink);
-            background: transparent;
-            border: 0;
-            outline: 0;
+            background: var(--site-green-wash);
+            border: 1px solid transparent;
+            border-radius: 8px;
             font: inherit;
             font-weight: 700;
             cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease;
         }
 
-        .toolbar select option { background: var(--site-surface); }
+        .dd-btn:hover, .dd-btn[aria-expanded="true"] { border-color: var(--site-green); }
+        .dd-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s ease; }
+        .dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+        .dd-menu {
+            position: absolute;
+            z-index: 30;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 100%;
+            width: max-content;
+            margin: 0;
+            padding: 5px;
+            list-style: none;
+            background: var(--tl-surface, #22342e);
+            border: 1px solid var(--site-line);
+            border-radius: 10px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+            animation: dd-in 0.14s ease;
+        }
+
+        .dd-menu[hidden] { display: none; }
+        @keyframes dd-in { from { opacity: 0; transform: translateY(-4px); } }
+
+        .dd-menu li {
+            padding: 8px 12px 8px 28px;
+            color: var(--site-ink);
+            border-radius: 7px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            position: relative;
+            outline: 0;
+        }
+
+        .dd-menu li:hover, .dd-menu li:focus { background: var(--site-green-wash); }
+        .dd-menu li[aria-selected="true"] { font-weight: 700; color: var(--site-green-light); }
+        .dd-menu li[aria-selected="true"]::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            width: 6px;
+            height: 10px;
+            margin-top: -7px;
+            border: solid currentColor;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
         .toolbar .count { margin-left: auto; color: var(--site-muted); font-size: 0.82rem; }
+
+        .view-switch {
+            display: inline-flex;
+            padding: 3px;
+            gap: 2px;
+            background: var(--site-surface);
+            border: 1px solid var(--site-line);
+            border-radius: 10px;
+        }
+
+        .view-switch button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            color: var(--site-muted);
+            background: transparent;
+            border: 0;
+            border-radius: 7px;
+            font: inherit;
+            font-size: 0.82rem;
+            cursor: pointer;
+        }
+
+        .view-switch button:hover { color: var(--site-ink); }
+        .view-switch button[aria-pressed="true"] { color: var(--site-ink); background: var(--site-green-wash); box-shadow: inset 0 0 0 1px var(--site-green); }
+        .view-switch svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+        .filters button { padding: 5px 14px; color: var(--site-muted); background: var(--site-surface); border: 1px solid var(--site-line); border-radius: 999px; font: inherit; font-size: 0.8rem; cursor: pointer; }
+        .filters button:hover { color: var(--site-ink); border-color: var(--site-green-light); }
+        .filters button[aria-pressed="true"] { color: var(--site-ink); background: var(--site-green-wash); border-color: var(--site-green); box-shadow: inset 0 0 0 1px var(--site-green); }
+
+        /* Grid layout: cards in responsive columns */
+        .project-list.view-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .view-grid .project-row { grid-template-columns: 64px minmax(0, 1fr); align-content: start; }
+        .view-grid .row-icon { width: 64px; height: 64px; grid-row: 1 / span 1; }
+        .view-grid .row-icon.placeholder { font-size: 1rem; }
+        .view-grid .row-title { align-self: center; font-size: 1.05rem; }
+        .view-grid .row-title small { display: block; margin: 2px 0 0; }
+        .view-grid .row-desc { grid-column: 1 / -1; margin-top: 6px; }
+        .view-grid .row-tags { grid-column: 1 / -1; margin-top: 6px; }
+        .view-grid .row-stats { grid-column: 1 / -1; grid-row: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 6px; }
+
+        /* Compact layout: slim one-line rows */
+        .project-list.view-compact { gap: 8px; }
+        .view-compact .project-row { grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; padding: 8px 12px; gap: 2px 12px; }
+        .view-compact .row-icon { width: 40px; height: 40px; border-radius: 9px; grid-row: 1 / span 1; }
+        .view-compact .row-icon.placeholder { font-size: 0.62rem; letter-spacing: 0; }
+        .view-compact .row-title { font-size: 1rem; }
+        .view-compact .row-desc, .view-compact .row-tags { display: none; }
+        .view-compact .row-stats { grid-column: 3; grid-row: 1; flex-direction: row; align-items: center; gap: 14px; }
 
         .project-list { display: grid; gap: 12px; padding-bottom: 22px; }
 
@@ -184,6 +315,13 @@
             .row-icon.placeholder { font-size: 1rem; }
             .row-tags { grid-column: 1 / -1; }
             .row-stats { grid-column: 1 / -1; grid-row: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; }
+            .view-switch button span { display: none; }
+            .project-list.view-grid { grid-template-columns: 1fr; }
+            .view-grid .project-row { grid-template-columns: 64px minmax(0, 1fr); }
+            .view-grid .row-icon { width: 64px; height: 64px; }
+            .view-compact .project-row { grid-template-columns: 40px minmax(0, 1fr); }
+            .view-compact .row-icon { width: 40px; height: 40px; grid-row: 1; }
+            .view-compact .row-stats { grid-column: 1 / -1; grid-row: auto; gap: 12px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -216,6 +354,7 @@
                 </div></div>
             </div>
             <a class="site-nav-link" href="./" aria-current="page">Projects</a>
+            <a class="site-nav-link" href="../news/">News</a>
             <div class="nav-dropdown">
                 <a class="site-nav-link" href="../aboutme/">About</a>
                 <div class="nav-menu"><div class="nav-menu-inner">
@@ -251,13 +390,37 @@
         </label>
 
         <div class="toolbar">
-            <label>Sort by: <select id="sort" aria-label="Sort projects">
-                <option value="default">Featured</option>
-                <option value="name">Name</option>
-                <option value="downloads">Downloads</option>
-                <option value="updated">Recently updated</option>
-            </select></label>
+            <div class="sort-control">
+                <span class="sort-label" id="sort-label">Sort by:</span>
+                <div class="dropdown" id="sort-dd">
+                    <button type="button" class="dd-btn" id="sort-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="sort-label sort-btn">
+                        <span class="dd-value">Featured</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <ul class="dd-menu" role="listbox" aria-labelledby="sort-label" tabindex="-1" hidden>
+                        <li role="option" data-value="default" aria-selected="true" tabindex="-1">Featured</li>
+                        <li role="option" data-value="name" aria-selected="false" tabindex="-1">Name</li>
+                        <li role="option" data-value="downloads" aria-selected="false" tabindex="-1">Downloads</li>
+                        <li role="option" data-value="updated" aria-selected="false" tabindex="-1">Recently updated</li>
+                    </ul>
+                </div>
+                <input type="hidden" id="sort" value="default">
+            </div>
+            <div class="view-switch" role="group" aria-label="Layout">
+                <button type="button" data-view="list" aria-pressed="true" title="List layout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>List</span></button>
+                <button type="button" data-view="grid" aria-pressed="false" title="Grid layout"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg><span>Grid</span></button>
+                <button type="button" data-view="compact" aria-pressed="false" title="Compact layout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 9.5h16M4 14h16M4 18.5h16"/></svg><span>Compact</span></button>
+            </div>
             <span class="count" id="count" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="filters" id="filters" role="group" aria-label="Filter projects">
+            <button type="button" data-filter="" aria-pressed="true">All</button>
+            <button type="button" data-filter="Modpack" aria-pressed="false">Modpack</button>
+            <button type="button" data-filter="BeamNG.drive" aria-pressed="false">BeamNG.drive</button>
+            <button type="button" data-filter="Software" aria-pressed="false">Software</button>
+            <button type="button" data-filter="In development" aria-pressed="false">In development</button>
+            <button type="button" data-filter="Planned" aria-pressed="false">Planned</button>
         </div>
 
         <section class="project-list" id="list" aria-label="Projects">
@@ -278,58 +441,59 @@
                 </div>
             </a>
 
-            <a class="project-row" href="#" data-name="Worldwide 3800" data-downloads="0" data-updated="2000-01-01" data-order="1">
+            <a class="project-row" href="Worldwide3800/" data-name="Worldwide 3800" data-downloads="0" data-updated="2000-01-01" data-order="1">
                 <div class="row-icon placeholder" aria-hidden="true">3800</div>
                 <h2 class="row-title">Worldwide 3800 <small>by TheLanout</small></h2>
-                <p class="row-desc">A BeamNG.drive bus mod built on the International 3800 chassis, with body variations from Blue Bird, Ward, Wayne and Crown, and the CE body planned for later. Currently in the works.</p>
+                <p class="row-desc">A BeamNG.drive bus mod built on the International 3800 chassis, with body variations from Blue Bird, Ward, Wayne and Crown,                 and the CE body planned for later. Currently in development.</p>
                 <div class="row-tags">
                     <span class="row-tag">BeamNG.drive</span>
                     <span class="row-tag">Bus mod</span>
-                    <span class="row-tag accent">In the works</span>
+                                    <span class="row-tag accent">In development</span>
                 </div>
                 <div class="row-stats">
-                    <span class="muted">In the works</span>
+                                    <span class="muted">In development</span>
                 </div>
             </a>
 
-            <a class="project-row" href="#" data-name="Worldwide 4700" data-downloads="0" data-updated="2000-01-01" data-order="2">
+            <a class="project-row" href="Worldwide4700/" data-name="Worldwide 4700" data-downloads="0" data-updated="2000-01-01" data-order="2">
                 <div class="row-icon placeholder" aria-hidden="true">4700</div>
                 <h2 class="row-title">Worldwide 4700 <small>by TheLanout</small></h2>
-                <p class="row-desc">Worldwide 4700 &mdash; a TheLanout project. Currently in the works, more details coming soon.</p>
+                <p class="row-desc">The truck variant of the Worldwide 3800, a BeamNG.drive mod with very similar looks and configurations. Planned, work has not started yet.</p>
                 <div class="row-tags">
-                    <span class="row-tag">Project</span>
-                    <span class="row-tag accent">In the works</span>
+                    <span class="row-tag">BeamNG.drive</span>
+                    <span class="row-tag">Truck mod</span>
+                    <span class="row-tag accent">Planned</span>
                 </div>
                 <div class="row-stats">
-                    <span class="muted">In the works</span>
+                    <span class="muted">Planned</span>
                 </div>
             </a>
 
-            <a class="project-row" href="#" data-name="Worldwide FE300" data-downloads="0" data-updated="2000-01-01" data-order="3">
+            <a class="project-row" href="WorldwideFE300/" data-name="Worldwide FE300" data-downloads="0" data-updated="2000-01-01" data-order="3">
                 <div class="row-icon placeholder" aria-hidden="true">FE300</div>
                 <h2 class="row-title">Worldwide FE300 <small>by TheLanout</small></h2>
-                <p class="row-desc">A BeamNG.drive bus mod based on the International IC FE (front-engine) school bus, covering both the Genesis and WARD eras of the bus. Currently in the works.</p>
+                <p class="row-desc">A BeamNG.drive bus mod based on the International IC FE                 (front-engine) school bus, covering both the Genesis and WARD eras of the bus. Planned, work has not started yet.</p>
                 <div class="row-tags">
                     <span class="row-tag">BeamNG.drive</span>
                     <span class="row-tag">Bus mod</span>
-                    <span class="row-tag accent">In the works</span>
+                                    <span class="row-tag accent">Planned</span>
                 </div>
                 <div class="row-stats">
-                    <span class="muted">In the works</span>
+                                    <span class="muted">Planned</span>
                 </div>
             </a>
 
-            <a class="project-row" href="#" data-name="Worldwide RE300" data-downloads="0" data-updated="2000-01-01" data-order="4">
+            <a class="project-row" href="WorldwideRE300/" data-name="Worldwide RE300" data-downloads="0" data-updated="2000-01-01" data-order="4">
                 <div class="row-icon placeholder" aria-hidden="true">RE300</div>
                 <h2 class="row-title">Worldwide RE300 <small>by TheLanout</small></h2>
-                <p class="row-desc">A BeamNG.drive bus mod based on the International IC RE (rear-engine) school bus, covering both the Genesis and WARD eras of the bus. Currently in the works.</p>
+                <p class="row-desc">A BeamNG.drive bus mod based on the International IC RE                 (rear-engine) school bus, covering both the Genesis and WARD eras of the bus. Planned, work has not started yet.</p>
                 <div class="row-tags">
                     <span class="row-tag">BeamNG.drive</span>
                     <span class="row-tag">Bus mod</span>
-                    <span class="row-tag accent">In the works</span>
+                                    <span class="row-tag accent">Planned</span>
                 </div>
                 <div class="row-stats">
-                    <span class="muted">In the works</span>
+                                    <span class="muted">Planned</span>
                 </div>
             </a>
 
@@ -365,6 +529,7 @@
                     <li><a href="../tkh/">Technology Help</a></li>
                     <li><a href="../tools/">Tools</a></li>
                     <li><a href="../projects/">Projects</a></li>
+                    <li><a href="../news/">News</a></li>
                 </ul>
             </nav>
             <nav aria-label="Community">
@@ -400,6 +565,14 @@
             if (r.getAttribute('href') === '#') r.addEventListener('click', e => e.preventDefault());
         });
 
+        let activeFilter = '';
+        const filterButtons = [...document.querySelectorAll('#filters button')];
+        filterButtons.forEach(b => b.addEventListener('click', () => {
+            activeFilter = b.dataset.filter;
+            filterButtons.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+            render();
+        }));
+
         function render() {
             const q = search.value.trim().toLowerCase();
             const key = {
@@ -411,7 +584,8 @@
             rows.sort(key).forEach(r => list.appendChild(r));
             let shown = 0;
             rows.forEach(r => {
-                const match = r.textContent.toLowerCase().includes(q);
+                const tagOk = !activeFilter || [...r.querySelectorAll('.row-tag')].some(t => t.textContent.trim() === activeFilter);
+                const match = tagOk && r.textContent.toLowerCase().includes(q);
                 r.hidden = !match;
                 if (match) shown++;
             });
@@ -420,7 +594,53 @@
         }
 
         search.addEventListener('input', render);
-        sort.addEventListener('change', render);
+
+        const dd = document.getElementById('sort-dd');
+        const ddBtn = document.getElementById('sort-btn');
+        const ddMenu = dd.querySelector('.dd-menu');
+        const ddItems = [...ddMenu.children];
+        function ddOpen(open, focusItem) {
+            ddMenu.hidden = !open;
+            ddBtn.setAttribute('aria-expanded', String(open));
+            if (open) (focusItem || ddItems.find(i => i.getAttribute('aria-selected') === 'true')).focus();
+        }
+        function ddChoose(item) {
+            ddItems.forEach(i => i.setAttribute('aria-selected', String(i === item)));
+            dd.querySelector('.dd-value').textContent = item.textContent;
+            sort.value = item.dataset.value;
+            ddOpen(false);
+            ddBtn.focus();
+            render();
+        }
+        ddBtn.addEventListener('click', () => ddOpen(ddMenu.hidden));
+        ddBtn.addEventListener('keydown', e => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); ddOpen(true); }
+        });
+        ddItems.forEach(item => item.addEventListener('click', () => ddChoose(item)));
+        ddMenu.addEventListener('keydown', e => {
+            const i = ddItems.indexOf(document.activeElement);
+            if (e.key === 'ArrowDown') { e.preventDefault(); ddItems[Math.min(i + 1, ddItems.length - 1)].focus(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); ddItems[Math.max(i - 1, 0)].focus(); }
+            else if (e.key === 'Home') { e.preventDefault(); ddItems[0].focus(); }
+            else if (e.key === 'End') { e.preventDefault(); ddItems[ddItems.length - 1].focus(); }
+            else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ddChoose(document.activeElement); }
+            else if (e.key === 'Escape') { ddOpen(false); ddBtn.focus(); }
+            else if (e.key === 'Tab') ddOpen(false);
+        });
+        document.addEventListener('click', e => { if (!dd.contains(e.target)) ddOpen(false); });
+
+        const viewButtons = [...document.querySelectorAll('.view-switch button')];
+        function setView(view) {
+            if (!viewButtons.some(b => b.dataset.view === view)) view = 'list';
+            list.classList.remove('view-grid', 'view-compact');
+            if (view !== 'list') list.classList.add('view-' + view);
+            viewButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
+            try { localStorage.setItem('tl-projects-view', view); } catch (e) {}
+        }
+        viewButtons.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+        let savedView = 'list';
+        try { savedView = localStorage.getItem('tl-projects-view') || 'list'; } catch (e) {}
+        setView(savedView);
         render();
     </script>
 </body>

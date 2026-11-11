@@ -3,6 +3,7 @@ https://www.thelanout.net/readme.md
 https://www.thelanout.net/Katie.jpg
 https://www.thelanout.net/site-saver/
 https://www.thelanout.net/projects/
+https://www.thelanout.net/news/
 https://www.thelanout.net/projects/AllyCraft/
 https://www.thelanout.net/projects/Meshflow/
 https://www.thelanout.net/tools/
@@ -11,3 +12,9 @@ https://www.thelanout.net/tools/text-edit/
 https://www.thelanout.net/tools/minecraftcodesrs/
 https://www.thelanout.net/tools/df/
 https://www.thelanout.net/privacy/
+https://www.thelanout.net/projects/Worldwide3800/
+https://www.thelanout.net/projects/Worldwide4700/
+https://www.thelanout.net/projects/WorldwideFE300/
+https://www.thelanout.net/projects/WorldwideRE300/
+https://www.thelanout.net/aboutme/
+https://www.thelanout.net/tkh/

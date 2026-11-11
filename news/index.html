@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>News | TheLanout</title>
+    <meta name="description" content="News and updates from TheLanout: projects, releases and announcements.">
+    <link rel="canonical" href="https://www.thelanout.net/news/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TheLanout">
+    <meta property="og:title" content="News | TheLanout">
+    <meta property="og:description" content="News and updates from TheLanout: projects, releases and announcements.">
+    <meta property="og:url" content="https://www.thelanout.net/news/">
+    <meta property="og:image" content="https://www.thelanout.net/TL.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="News | TheLanout">
+    <meta name="twitter:description" content="News and updates from TheLanout: projects, releases and announcements.">
+    <meta name="twitter:image" content="https://www.thelanout.net/TL.png">
+    <link rel="icon" type="image/png" href="../TL.png">
+    <link rel="stylesheet" href="../site-shell.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="../nav-dropdown.css">
+    <link rel="stylesheet" href="../theme.css">
+    <script src="../theme.js"></script>
+    <script src="../nav-dropdown.js" defer></script>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../">
+            <img src="../TL.png" alt="" width="32" height="32">
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../">Home</a>
+            <a class="site-nav-link" href="../tkh/">Technology Help</a>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../tools/">Tools</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../tools/cpu-checker/"><strong>CPU Compatibility Checker</strong><span>Check processor compatibility with Windows, Linux, ChromeOS and VMs.</span></a>
+                    <a class="nav-menu-item" href="../tools/text-edit/"><strong>Text Editor</strong><span>Edit, import, export and preview text and web files.</span></a>
+                    <a class="nav-menu-item" href="../tools/minecraftcodesrs/"><strong>Minecraft Color Codes</strong><span>Apply Minecraft color and style codes to text.</span></a>
+                    <a class="nav-menu-item" href="../tools/df/"><strong>Discord Text Formatter</strong><span>Format text with Discord markdown and copy it.</span></a>
+                    <a class="nav-menu-item nav-menu-all" href="../tools/">All tools &rarr;</a>
+                </div></div>
+            </div>
+            <a class="site-nav-link" href="../projects/">Projects</a>
+            <a class="site-nav-link" href="./" aria-current="page">News</a>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../aboutme/">About</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../aboutme/"><strong>About TheLanout</strong><span>Who we are and how to reach us.</span></a>
+                    <a class="nav-menu-item" href="../privacy/"><strong>Privacy Policy</strong><span>We never share any of your data.</span></a>
+                </div></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <section class="news-intro" aria-labelledby="news-title">
+            <p class="site-eyebrow">TheLanout / News</p>
+            <h1 class="site-page-title" id="news-title">News</h1>
+            <p class="lede">Announcements, updates and releases from TheLanout. Newest first.</p>
+        </section>
+
+        <div class="news-filters" id="filters" role="group" aria-label="Filter news by category"></div>
+
+        <!--
+            HOW TO ADD A POST
+            1. Open news/templates.html in the browser, pick a template and click "Copy HTML".
+            2. Paste it just below this comment inside <section id="feed">. Order doesn't matter:
+               posts sort themselves by data-date (newest first). Add data-pinned to keep one on top.
+            3. Change id, data-date (YYYY-MM-DD), data-category, the title and the content.
+            4. Put pictures, videos and audio in news/media/ and point to them as media/yourfile.ext.
+        -->
+        <section class="news-feed" id="feed" aria-label="News posts">
+            <article class="post" id="welcome-to-news" data-date="2026-11-10" data-category="Announcement" data-pinned>
+                <div class="post-meta">
+                    <time datetime="2026-11-10"></time>
+                    <span class="post-tag">Announcement</span>
+                    <a class="post-link" href="#welcome-to-news" aria-label="Link to this post">#</a>
+                </div>
+                <h2><a href="#welcome-to-news">Welcome to TheLanout News</a></h2>
+                <div class="post-body">
+                    <p>This is where we post updates about our projects, releases and anything else worth sharing. For chat and quick updates, join our <a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Discord</a>.</p>
+                    <p>Currently in development: <a href="../projects/Worldwide3800/">Worldwide 3800</a>.</p>
+                </div>
+            </article>
+        </section>
+        <p class="news-empty" id="empty">No posts in this category yet.</p>
+    </main>
+
+    <footer class="tl-footer">
+        <div class="tl-footer-top">
+            <div class="tl-footer-about">
+                <a class="tl-footer-brand" href="../"><img src="../TL.png" alt="">TheLanout</a>
+                <p>Practical web tools, technology help and projects. We never share any of your data.</p>
+            </div>
+            <nav aria-label="Explore">
+                <h2>Explore</h2>
+                <ul>
+                    <li><a href="../">Home</a></li>
+                    <li><a href="../tkh/">Technology Help</a></li>
+                    <li><a href="../tools/">Tools</a></li>
+                    <li><a href="../projects/">Projects</a></li>
+                    <li><a href="./">News</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Community">
+                <h2>Community</h2>
+                <ul>
+                    <li><a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Discord</a></li>
+                    <li><a href="https://www.youtube.com/@lanariesechos" target="_blank" rel="noopener">YouTube</a></li>
+                    <li><a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Patreon</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Legal">
+                <h2>About</h2>
+                <ul>
+                    <li><a href="../aboutme/">About us</a></li>
+                    <li><a href="../privacy/">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="tl-footer-bottom">
+            <span>&copy; 2015 - 2026 TheLanout</span>
+            <span>NowPointServer X (10)</span>
+        </div>
+    </footer>
+    <script src="news.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182622">
+    <title>Worldwide 4700 | TheLanout Projects</title>
+    <meta name="description" content="Worldwide 4700: the truck variant of the Worldwide 3800, a BeamNG.drive mod. Planned.">
+    <link rel="canonical" href="https://www.thelanout.net/projects/Worldwide4700/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TheLanout">
+    <meta property="og:title" content="Worldwide 4700 | TheLanout Projects">
+    <meta property="og:description" content="Worldwide 4700: the truck variant of the Worldwide 3800, a BeamNG.drive mod. Planned.">
+    <meta property="og:url" content="https://www.thelanout.net/projects/Worldwide4700/">
+    <meta property="og:image" content="https://www.thelanout.net/TL.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Worldwide 4700 | TheLanout Projects">
+    <meta name="twitter:description" content="Worldwide 4700: the truck variant of the Worldwide 3800, a BeamNG.drive mod. Planned.">
+    <meta name="twitter:image" content="https://www.thelanout.net/TL.png">
+    <link rel="icon" type="image/png" href="../../TL.png">
+    <link rel="stylesheet" href="../../site-shell.css">
+    <style>
+        .crumbs { margin: 6px 0 14px; font-size: 0.82rem; color: var(--site-muted); }
+        .crumbs a { color: var(--site-green-light); text-decoration: none; }
+
+        .card { background: linear-gradient(145deg, var(--site-green-wash), var(--site-surface)); border: 1px solid var(--site-line); border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
+
+        .project-header { padding: 24px; display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+        .project-header .icon { width: 112px; height: 112px; flex: none; display: grid; place-items: center; border-radius: 22px; border: 2px solid var(--site-green); box-shadow: 0 0 26px rgba(97, 183, 155, 0.35); background: linear-gradient(135deg, #1c3a30, #0f1f1a); color: var(--site-green-light); font-size: 2.2rem; font-weight: 700; }
+        .project-info { flex: 1 1 320px; min-width: 0; }
+        .project-info h1 { margin: 0 0 4px; font-size: 2rem; line-height: 1.15; }
+        .project-info .summary { margin: 0 0 12px; color: var(--site-muted); font-size: 0.92rem; }
+        .stats { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 10px 0; margin-bottom: 10px; border-top: 1px solid var(--site-line); border-bottom: 1px solid var(--site-line); font-size: 0.82rem; color: var(--site-muted); }
+        .stats strong { color: var(--site-ink); }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { padding: 3px 11px; color: var(--site-green-light); background: var(--site-paper); border: 1px solid var(--site-line); border-radius: 999px; font-size: 0.74rem; font-weight: 700; }
+
+        .actions { display: flex; flex-direction: column; gap: 8px; align-self: center; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; text-decoration: none; cursor: pointer; border: 1px solid var(--site-green); color: var(--site-paper); background: linear-gradient(90deg, var(--site-green-light), var(--site-green)); box-shadow: 0 6px 18px rgba(97, 183, 155, 0.3); transition: transform 150ms ease; font-family: inherit; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn.secondary { color: var(--site-ink); background: var(--site-paper); box-shadow: none; border-color: var(--site-line); }
+
+        .tabs { display: flex; gap: 6px; margin: 18px 0; padding: 6px; flex-wrap: wrap; }
+        .tab { padding: 9px 18px; color: var(--site-muted); background: transparent; border: 0; border-radius: 7px; font: inherit; font-weight: 700; font-size: 0.86rem; cursor: pointer; }
+        .tab:hover { color: var(--site-ink); }
+        .tab[aria-selected="true"] { color: var(--site-paper); background: var(--site-green-light); }
+
+        .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+        @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+        .content { padding: 24px; }
+        .content h2 { margin: 24px 0 10px; font-size: 1.25rem; padding-bottom: 6px; border-bottom: 1px solid var(--site-line); }
+        .content h2:first-child { margin-top: 0; }
+        .content h3 { margin: 16px 0 6px; font-size: 1rem; color: var(--site-green-light); }
+        .content p, .content li { color: var(--site-muted); font-size: 0.92rem; }
+        .content ol, .content ul { padding-left: 22px; }
+        .content a { color: var(--site-green-light); }
+        .content blockquote { margin: 12px 0; padding: 10px 16px; border-left: 4px solid var(--site-green); background: var(--site-paper); border-radius: 0 6px 6px 0; color: var(--site-ink); font-weight: 700; font-size: 0.88rem; }
+        .content code { padding: 1px 6px; background: var(--site-paper); border: 1px solid var(--site-line); border-radius: 4px; font-size: 0.85em; }
+
+        .version { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px; background: var(--site-paper); border: 1px solid var(--site-line); border-radius: 8px; }
+        .version h3 { margin: 0 0 4px; font-size: 1rem; color: var(--site-ink); }
+        .version p { margin: 0; font-size: 0.8rem; }
+        .release { display: inline-block; padding: 2px 9px; margin-right: 6px; border-radius: 999px; background: var(--site-green-wash); border: 1px solid var(--site-green); color: var(--site-green-light); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+
+        .sidebar { display: grid; gap: 18px; }
+        .side { padding: 18px 20px; }
+        .side h2 { margin: 0 0 12px; font-size: 0.95rem; }
+        .side dl { margin: 0; }
+        .side dt { margin-top: 12px; color: var(--site-muted); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; }
+        .side dt:first-child { margin-top: 0; }
+        .side dd { margin: 4px 0 0; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip { padding: 2px 9px; font-size: 0.76rem; color: var(--site-ink); background: var(--site-paper); border: 1px solid var(--site-line); border-radius: 6px; }
+        .side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 0.86rem; }
+        .side a { color: var(--site-green-light); }
+        .creator { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; }
+        .creator img { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--site-green); }
+
+        .notice { margin: 0 0 18px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; color: #ff7b7b; background: rgba(90, 10, 10, 0.55); border: 2px solid #ff3b3b; border-radius: 8px; font-weight: 700; font-size: 0.9rem; }
+        .notice svg { flex: none; width: 40px; height: 40px; }
+        @media (max-width: 640px) { .notice { padding: 10px 12px; gap: 10px; font-size: 0.8rem; line-height: 1.4; } .notice svg { width: 30px; height: 30px; } .project-header { padding: 18px; } .project-header .icon { width: 84px; height: 84px; font-size: 1.4rem; } .project-info h1 { font-size: 1.6rem; } }
+        .status { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--site-green-wash); border: 1px solid var(--site-green); color: var(--site-green-light); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        [hidden] { display: none !important; }
+    </style>
+    <link rel="stylesheet" href="../../nav-dropdown.css">
+    <link rel="stylesheet" href="../../theme.css">
+    <script src="../../theme.js"></script>
+    <script src="../../nav-dropdown.js" defer></script>
+</head>
+<body class="site-shell">
+    <header class="site-topbar">
+        <a class="site-brand" href="../../" aria-label="TheLanout home">
+            <span class="site-brand-mark" aria-hidden="true"><img src="../../TL.png" alt=""></span>
+            <span>TheLanout</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-nav-link" href="../../">Home</a>
+            <a class="site-nav-link" href="../../tkh/">Technology Help</a>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../../tools/">Tools</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../../tools/cpu-checker/"><strong>CPU Compatibility Checker</strong><span>Check processor compatibility with Windows, Linux, ChromeOS and VMs.</span></a>
+                    <a class="nav-menu-item" href="../../tools/text-edit/"><strong>Text Editor</strong><span>Edit, import, export and preview text and web files.</span></a>
+                    <a class="nav-menu-item" href="../../tools/minecraftcodesrs/"><strong>Minecraft Color Codes</strong><span>Apply Minecraft color and style codes to text.</span></a>
+                    <a class="nav-menu-item" href="../../tools/df/"><strong>Discord Text Formatter</strong><span>Format text with Discord markdown and copy it.</span></a>
+                    <a class="nav-menu-item nav-menu-all" href="../../tools/">All tools &rarr;</a>
+                </div></div>
+            </div>
+            <a class="site-nav-link" href="../" aria-current="page">Projects</a>
+            <a class="site-nav-link" href="../../news/">News</a>
+            <div class="nav-dropdown">
+                <a class="site-nav-link" href="../../aboutme/">About</a>
+                <div class="nav-menu"><div class="nav-menu-inner">
+                    <a class="nav-menu-item" href="../../aboutme/"><strong>About TheLanout</strong><span>Who we are and how to reach us.</span></a>
+                    <a class="nav-menu-item" href="../../privacy/"><strong>Privacy Policy</strong><span>We never share any of your data.</span></a>
+                </div></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <p class="crumbs"><a href="../">Projects</a> / <a href="../">Project</a> / Worldwide 4700</p>
+
+        <section class="notice" role="alert">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 96,90 4,90" fill="#ff3b3b" stroke="#ffb3b3" stroke-width="4" stroke-linejoin="round"/><rect x="46" y="34" width="8" height="30" rx="3" fill="#fff"/><circle cx="50" cy="75" r="5" fill="#fff"/></svg>
+            <span>Do not redistribute. Re-uploading or sharing this project is prohibited, and we will take legal action.</span>
+        </section>
+
+        <section class="card project-header">
+            <div class="icon" aria-hidden="true">4700</div>
+            <div class="project-info">
+                <h1>Worldwide 4700</h1>
+                <p class="summary">The truck variant of the Worldwide 3800, a BeamNG.drive mod with very similar looks and configurations.</p>
+                <div class="stats">
+                    <span class="status">Planned</span>
+                    <span>by <strong>TheLanout</strong></span>
+                </div>
+                <div class="tags"><span class="tag">BeamNG.drive</span><span class="tag">Truck mod</span><span class="tag">International 4700</span></div>
+            </div>
+            <div class="actions">
+                <a class="btn secondary" href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Follow on Discord</a>
+                <a class="btn secondary" href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Support on Patreon</a>
+            </div>
+        </section>
+
+        <div class="layout" style="margin-top:18px">
+            <div class="card content">
+                <h2>About Worldwide 4700</h2><p>Worldwide 4700 is the truck variant of the Worldwide 3800 for BeamNG.drive. The two look very similar and share many of the same configurations. Work has not started yet: the Worldwide 3800 is the project in active development right now.</p>
+                <blockquote>Not released yet. Join the Discord to hear when it is ready.</blockquote>
+            </div>
+
+            <aside class="sidebar" aria-label="Project details">
+                <section class="card side">
+                    <h2>Details</h2>
+                    <dl>
+                        <dt>Status</dt><dd class="chips"><span class="chip">Planned</span></dd>
+                        <dt>Game</dt><dd class="chips"><span class="chip">BeamNG.drive</span></dd>
+                        <dt>Type</dt><dd class="chips"><span class="chip">Truck</span></dd>
+                        <dt>Related</dt><dd class="chips"><span class="chip">Worldwide 3800</span></dd>
+                    </dl>
+                </section>
+                <section class="card side">
+                    <h2>Links</h2>
+                    <ul>
+                        <li><a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Join the Discord</a></li>
+                        <li><a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Support on Patreon</a></li>
+                        <li><a href="../">All projects</a></li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="tl-footer">
+        <div class="tl-footer-top">
+            <div class="tl-footer-about">
+                <a class="tl-footer-brand" href="../../"><img src="../../TL.png" alt="">TheLanout</a>
+                <p>Practical web tools, technology help and projects. We never share any of your data.</p>
+            </div>
+            <nav aria-label="Explore">
+                <h2>Explore</h2>
+                <ul>
+                    <li><a href="../../">Home</a></li>
+                    <li><a href="../../tkh/">Technology Help</a></li>
+                    <li><a href="../../tools/">Tools</a></li>
+                    <li><a href="../../projects/">Projects</a></li>
+                    <li><a href="../../news/">News</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Community">
+                <h2>Community</h2>
+                <ul>
+                    <li><a href="https://discord.gg/hS2VFxDU3B" target="_blank" rel="noopener">Discord</a></li>
+                    <li><a href="https://www.youtube.com/@lanariesechos" target="_blank" rel="noopener">YouTube</a></li>
+                    <li><a href="https://www.patreon.com/LanAriesEchos" target="_blank" rel="noopener">Patreon</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Legal">
+                <h2>About</h2>
+                <ul>
+                    <li><a href="../../aboutme/">About us</a></li>
+                    <li><a href="../../privacy/">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="tl-footer-bottom">
+            <span>&copy; 2015 - 2026 TheLanout</span>
+            <span>NowPointServer X (10)</span>
+        </div>
+    </footer>
+
+</body>
+</html>

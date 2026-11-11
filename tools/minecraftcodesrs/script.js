@@ -67,6 +67,14 @@ function buildColorPicker() {
         const div = document.createElement('div');
         div.className = 'color-block';
         div.style.backgroundColor = color;
+        const lin = [1, 3, 5].map(i => {
+            const v = parseInt(color.slice(i, i + 2), 16) / 255;
+            return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        const lum = 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+        const useDark = (lum + 0.05) / 0.05 > 1.05 / (lum + 0.05);
+        div.style.color = useDark ? '#000' : '#fff';
+        div.style.textShadow = 'none';
         div.dataset.code = code;
         div.textContent = code;
         div.addEventListener('click', () => applyCode(code));
